@@ -1,7 +1,9 @@
 # Game Design Document
-This is a place holder for your game design document. You are advised to write your document in [Markdown](http://daringfireball.net/projects/markdown/) and the following section will show you how to write a document using Markdown markup.
+## Chris Hadfield Defends Earth
+### Cody Rapp
+In a Jetman/Copter style game, an avatar of Chris Hadfield (the Canadian ISS astronaut) will move up and down to avoid the targets. 
 
-Alternativley, you can write your document in plain text if you wish.
+
 
 ----
 
