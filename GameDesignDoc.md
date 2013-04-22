@@ -45,10 +45,27 @@ aliens hit).
 
 
 
-# Score Changes
-# Number of Lives
+### Score Changes
+
+Score is based on the time Chris survives and the number of aliens he hits. He receives +100 points for each alien he hits. An automatic timer
+will count up by a 10's for each second that Chris is alive. If Chris is hit by an asteroid, a comet, or a UFO, his score goes down by 100 points 
+and he loses a life.
+
+### Number of Lives
+
+Chris will start out with 2 lives. Each time he kills 5 aliens, he will be rewarded one more life, but the user has to redeem it by clicking on the
+space shuttle on the bottom left hand of the screen.
 
 ----
 
 ## User Interface
+
+When the game is executed, a home screen image appears in the scene. When the user presses the image (usually where is says "Start Game"), the image
+disappears and the game scene remains. The user is instructed via a text box below the scene how to play the game. The user must enter their name before
+they click on the home screen, otherwise an error message will pop up in the text box explaining how to fill in the name. When the user clicks
+on Chris to start the game, the text boxes will be populated with number of lives and the score count will begin. There is a pause and a quit
+button at the bottom of the GUI to pause the game and to exit out of the GUI.
+
+
+
 
