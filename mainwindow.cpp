@@ -30,7 +30,17 @@ void MainWindow::startButton()
 { 
   error->clear();
   error->insertPlainText("Start Button was pressed");
+  
+  
   scene->removeItem(bgitem);
+  startGame();
+  //scene->addItem(space1);
+ 
+}
+
+void MainWindow::startGame()
+{
+  scene->addItem(space1);
 }
  
 
@@ -94,12 +104,15 @@ MainWindow::MainWindow()  {
     
     
     //IMAGES
-    QString title("ChrisTitle.png");
-    bground = new QPixmap(title);
+    QString title1("ChrisTitle.png");
+    bground = new QPixmap(title1);
     QPixmap scaled = bground->scaledToHeight(390);
     bgitem = new QGraphicsPixmapItem(scaled);
    
-    
+    QString title("space.png");
+    space = new QPixmap(title);
+    QPixmap scaled1 = space->scaledToHeight(390);
+    space1 = new QGraphicsPixmapItem(scaled1);
     
     
     layout = new QHBoxLayout;
@@ -136,6 +149,7 @@ MainWindow::MainWindow()  {
    main->addLayout(horlay5);
     	
    scene->addItem(bgitem);
+
 }
 
 

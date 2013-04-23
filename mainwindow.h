@@ -53,6 +53,7 @@ public:
     void show();
     /**Timer count int, not used*/
     int timercount;
+    void startGame();
  
 
     
@@ -101,6 +102,11 @@ private:
     /**Images*/
     QPixmap *bground;
     QGraphicsPixmapItem *bgitem;
+    
+    QPixmap *space;
+    QGraphicsPixmapItem *space1;
+    
+
 
 public slots:
     /**Slot to handle timer*/
