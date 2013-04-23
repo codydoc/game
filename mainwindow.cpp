@@ -34,11 +34,11 @@ void MainWindow::startButton()
   
   scene->removeItem(bgitem);
   startGame();
-  //scene->addItem(space1);
+ 
  
 }
 
-void MainWindow::startGame()
+void MainWindow::startGame() //Implement gameplay here
 {
   scene->addItem(space1);
 }
