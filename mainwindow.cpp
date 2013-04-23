@@ -30,6 +30,7 @@ void MainWindow::startButton()
 { 
   error->clear();
   error->insertPlainText("Start Button was pressed");
+  scene->removeItem(bgitem);
 }
  
 
@@ -91,6 +92,16 @@ MainWindow::MainWindow()  {
     scorebox->setMaximumHeight(30);
     livesbox->setMaximumWidth(40);
     
+    
+    //IMAGES
+    QString title("ChrisTitle.png");
+    bground = new QPixmap(title);
+    QPixmap scaled = bground->scaledToHeight(390);
+    bgitem = new QGraphicsPixmapItem(scaled);
+   
+    
+    
+    
     layout = new QHBoxLayout;
     horlay = new QHBoxLayout;
     horlay2 = new QHBoxLayout;
@@ -124,7 +135,7 @@ MainWindow::MainWindow()  {
    main->addLayout(horlay4);
    main->addLayout(horlay5);
     	
-   
+   scene->addItem(bgitem);
 }
 
 

@@ -29,7 +29,7 @@
 
 #include <vector>
 
-#define WINDOW_MAX_X 400
+#define WINDOW_MAX_X 600
 #define WINDOW_MAX_Y 400
 
 
@@ -98,7 +98,9 @@ private:
     QLabel *lives;
     QLabel *score;
     
-    
+    /**Images*/
+    QPixmap *bground;
+    QGraphicsPixmapItem *bgitem;
 
 public slots:
     /**Slot to handle timer*/
