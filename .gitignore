@@ -11,3 +11,17 @@
 *.lai
 *.la
 *.a
+
+GameDesignDoc.md~
+Makefile
+chris.cpp~
+chris.h~
+game.cpp~
+game_codyrapp
+game_codyrapp.pro
+mainwindow.cpp~
+mainwindow.h~
+moc_mainwindow.cpp
+thing.cpp~
+thing.h~
+
