@@ -24,4 +24,5 @@ mainwindow.h~
 moc_mainwindow.cpp
 thing.cpp~
 thing.h~
+.gitignore~
 
