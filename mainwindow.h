@@ -24,6 +24,8 @@
 #include <cmath>
 
 #include "mylist.h"
+#include "thing.h"
+#include "chris.h"
 
 
 
@@ -105,6 +107,10 @@ private:
     
     QPixmap *space;
     QGraphicsPixmapItem *space1;
+    
+    QPixmap *chris;
+    
+    
     
 
 

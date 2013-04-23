@@ -40,7 +40,12 @@ void MainWindow::startButton()
 
 void MainWindow::startGame() //Implement gameplay here
 {
-  scene->addItem(space1);
+    scene->addItem(space1);
+  
+    QString title("chrissmall.png");
+    chris = new QPixmap(title);
+    Chris* avatar = new Chris(chris,30,160);
+    scene->addItem(avatar);
 }
  
 
