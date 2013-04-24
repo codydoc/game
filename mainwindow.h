@@ -18,6 +18,7 @@
 #include <QListView>
 #include <QString>
 #include <QGridLayout>
+#include <QKeyEvent>
 #include <iostream>
 #include <cstdlib>
 #include <deque>
@@ -57,7 +58,9 @@ public:
     int timercount;
     void startGame();
  
-
+protected:
+    void keyPressEvent(QKeyEvent *e);
+    void mousePressEvent(QGraphicsSceneMouseEvent *e);
     
 private:
     /**Scene*/
@@ -109,7 +112,7 @@ private:
     QGraphicsPixmapItem *space1;
     
     QPixmap *chris;
-    
+    Chris* avatar;
     
     
 

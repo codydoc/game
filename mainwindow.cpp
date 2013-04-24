@@ -8,9 +8,13 @@ Function should handle where the timer connects, then start the timer
 */
 void MainWindow::handleTimer() {
     
-    connect(timer, SIGNAL(timeout()), this, SLOT(moveTile(pick)));
-    timer->start(); 
+    
+   avatar->move();
       
+      //input determines state/position of the object
+      //timer actually updates the position
+      //so, mouse click event should change the dx/dy in teh class
+      //timer function should make sure the position is updated... ie setPos()
 }
 
 /**
@@ -18,6 +22,29 @@ Close Function
 Closes the window 
 */
 void MainWindow::close(){window->close();}
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+  
+  std::cout<< "IN KEY PRESS EVENT"<<std::endl;
+  //error->insertPlainText("In key press");
+  
+  switch(e->key())
+  {
+  case Qt::Key_Up: std::cout<<"PRESSED UP KEY"<<std::endl;
+  break;
+  case Qt::Key_Down: std::cout<<"PRESSED DOWN KEY"<<std::endl;
+  break;
+  }
+
+
+}
+
+void MainWindow::mousePressEvent(QGraphicsSceneMouseEvent *e)
+{
+  
+  std::cout<<"MOUSE PRESSED..."<<std::endl;
+}
 
 /**
 Start Button Function
@@ -34,6 +61,8 @@ void MainWindow::startButton()
   
   scene->removeItem(bgitem);
   startGame();
+  
+  timer->start(); 
  
  
 }
@@ -44,13 +73,17 @@ void MainWindow::startGame() //Implement gameplay here
   
     QString title("chrissmall.png");
     chris = new QPixmap(title);
-    Chris* avatar = new Chris(chris,30,160);
+    avatar = new Chris(chris,30,160);
     scene->addItem(avatar);
 }
  
 
-void MainWindow::pauseb()
+void MainWindow::pauseb() //change what is happening in here to the keypress event
 {
+   
+   avatar->setXY(avatar->getX()+5,avatar->getY()+5);
+   
+   
    error->clear();
    error->insertPlainText("Pause button pressed...");
 }
@@ -68,14 +101,17 @@ MainWindow::MainWindow()  {
 
     window= new QWidget;
     
-    window->setWindowTitle( "Graphical 8-Tile Puzzle");
+    //setFocusPolicy(Qt::StrongFocus);
+    setFocus();
+    
+    window->setWindowTitle( "Chris Hadfield");
     
     QVBoxLayout *main = new QVBoxLayout;
 
     //TIMER CALL - SET UP
     timer = new QTimer(this);
-    timer->setInterval(5);
-    //connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
+    timer->setInterval(1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 
 
     start= new QPushButton("Start Game");
@@ -154,6 +190,7 @@ MainWindow::MainWindow()  {
    main->addLayout(horlay5);
     	
    scene->addItem(bgitem);
+  
 
 }
 

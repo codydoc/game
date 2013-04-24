@@ -28,6 +28,9 @@ class Chris: public Thing {
   public:
    Chris(QPixmap *pm,int nx, int ny);
    void move();
+   void setXY(int,int);
+   int getX();
+   int getY();
    
   private:
   int x;
