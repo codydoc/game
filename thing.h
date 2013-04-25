@@ -27,7 +27,7 @@ class Thing: public QGraphicsPixmapItem {
    Thing(QPixmap *pm,int nx, int ny);
    virtual void move() = 0;
    
-  private:
+  protected:
   int x;
   int y;
   int vX;

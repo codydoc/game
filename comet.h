@@ -33,8 +33,8 @@ class Comet: public Thing {
    int getY();
    
   private:
-  int x;
-  int y;
+  int cx;
+  int cy;
   int vX;
   int vY;
   QPixmap *pixmap;

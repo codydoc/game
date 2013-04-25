@@ -13,7 +13,10 @@ void Comet::move()
 {
    if(x>0)
    {std::cout<< "MOVING! In Comet\n";
-   setPos(x,y);}
+   //setPos(x,y);
+   setX(x);
+   
+   }
    
    else
    {x=400;
