@@ -60,6 +60,7 @@ public:
     int timercount;
     void startGame();
     void createComet();
+    void redeemLife();
  
 protected:
     void keyPressEvent(QKeyEvent *e);

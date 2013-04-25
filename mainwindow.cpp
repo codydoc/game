@@ -99,7 +99,7 @@ void MainWindow::startGame() //Implement gameplay here
     
     QString t1("spaceship.png");
     ship = new QPixmap(t1);
-    spaceship = new Ship(ship,0,288);
+    spaceship = new Ship(ship,0,288,this);
     scene->addItem(spaceship);
 }
  
@@ -114,6 +114,10 @@ void MainWindow::pauseb() //change what is happening in here to the keypress eve
    error->insertPlainText("Pause button pressed...");
 }
 
+void MainWindow::redeemLife()
+{
+  livesbox->insertPlainText("1");
+}
 
 /**
 MainWindow Function

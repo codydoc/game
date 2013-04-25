@@ -23,14 +23,17 @@
 
 #include "thing.h"
 
+class MainWindow;
+
 class Ship: public Thing {
   
   public:
-   Ship(QPixmap *pm,int nx, int ny);
+   Ship(QPixmap *pm,int nx, int ny,MainWindow* mw);
    void move();
    void setXY(int,int);
    int getX();
    int getY();
+   void mousePressEvent(QGraphicsSceneMouseEvent *e);
    
   private:
   int x;
@@ -38,6 +41,8 @@ class Ship: public Thing {
   int vX;
   int vY;
   QPixmap *pixmap;
+  bool hasLife;
+  MainWindow *mw;
 
 };
 
