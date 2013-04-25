@@ -63,7 +63,7 @@ public:
     void redeemLife();
  
 protected:
-    void keyPressEvent(QKeyEvent *e);
+    void keyPressEvent(QKeyEvent *e); //grabkeyboard
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
     
 private:

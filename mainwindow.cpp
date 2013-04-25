@@ -53,8 +53,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
   switch(e->key())
   {
   case Qt::Key_Up: std::cout<<"PRESSED UP KEY"<<std::endl;
+  avatar->setXY(avatar->getX(),avatar->getY()-10);
   break;
   case Qt::Key_Down: std::cout<<"PRESSED DOWN KEY"<<std::endl;
+  avatar->setXY(avatar->getX(),avatar->getY()+10);
   break;
   }
 
@@ -107,7 +109,7 @@ void MainWindow::startGame() //Implement gameplay here
 void MainWindow::pauseb() //change what is happening in here to the keypress event
 {
    
-   avatar->setXY(avatar->getX(),avatar->getY()+10);
+   //avatar->setXY(avatar->getX(),avatar->getY()+10);
    
    
    error->clear();
@@ -116,7 +118,7 @@ void MainWindow::pauseb() //change what is happening in here to the keypress eve
 
 void MainWindow::redeemLife()
 {
-  livesbox->insertPlainText("1");
+  livesbox->insertPlainText("1"); //set this to lifecount...
 }
 
 /**
@@ -173,6 +175,7 @@ MainWindow::MainWindow()  {
     scorebox->setMaximumHeight(30);
     livesbox->setMaximumWidth(40);
     
+    //grabKeyboard(); //new dummy class that derives from qgraphicsview that has keypressevents
     
     //IMAGES
     QString title1("ChrisTitle.png");

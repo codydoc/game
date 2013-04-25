@@ -7,11 +7,13 @@ Chris::Chris(QPixmap* pm,int nx, int ny):Thing(pm,nx,ny)
   x=nx;
   y=ny;
   //setPos(x,y);
+  //moveby
 }
 
 void Chris::move()
 {
    std::cout<< "MOVING! In Chris\n";
+   //moveBy(x,y);
    setPos(x,y);
 }
 
