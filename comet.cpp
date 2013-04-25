@@ -1,12 +1,14 @@
 #include "comet.h"
 #include <iostream>
 #include <cstdlib>
+#include "mainwindow.h"
 
-Comet::Comet(QPixmap* pm,int nx, int ny):Thing(pm,nx,ny)
+Comet::Comet(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
   x=nx;
   y=ny;
   //setPos(x,y);
+  mw=mainw;
 }
 
 void Comet::move()
@@ -20,6 +22,7 @@ void Comet::move()
    
    else
    {x=400;
+   mw->destroyComet(this);
    //call a self destruct or destruct function in mainwindow so that this is deleted if it gets this far
    }
 }

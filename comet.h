@@ -23,10 +23,12 @@
 
 #include "thing.h"
 
+class MainWindow;
+
 class Comet: public Thing {
   
   public:
-   Comet(QPixmap *pm,int nx, int ny);
+   Comet(QPixmap *pm,int nx, int ny, MainWindow *mw);
    void move();
    void setXY(int,int);
    int getX();
@@ -38,6 +40,7 @@ class Comet: public Thing {
   int vX;
   int vY;
   QPixmap *pixmap;
+  MainWindow *mw;
 
 };
 

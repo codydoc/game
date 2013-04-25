@@ -61,6 +61,7 @@ public:
     void startGame();
     void createComet();
     void redeemLife();
+    void destroyComet(Comet*);
  
 protected:
     void keyPressEvent(QKeyEvent *e); //grabkeyboard

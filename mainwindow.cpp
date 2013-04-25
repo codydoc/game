@@ -28,6 +28,19 @@ Closes the window
 */
 void MainWindow::close(){window->close();}
 
+void MainWindow::destroyComet(Comet* com)
+{
+  for(int i=0;i<thinglist->size();i++)
+  {
+    if(thinglist->at(i)==com)
+    {
+      scene->removeItem(com);
+      thinglist->remove(com);
+      //delete com;
+    }
+  }
+}
+
 void MainWindow::createComet()
 {
     if(isComet==false)
@@ -35,7 +48,7 @@ void MainWindow::createComet()
     std::cout<<"Adding comet"<<std::endl;
     QString title("comet.png");
     comet = new QPixmap(title);
-    thecomet = new Comet(comet,490,10);
+    thecomet = new Comet(comet,490,90,this);
     scene->addItem(thecomet);
      
     thinglist->push_back(thecomet);
