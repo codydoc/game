@@ -27,6 +27,8 @@
 #include "mylist.h"
 #include "thing.h"
 #include "chris.h"
+#include "comet.h"
+#include "ship.h"
 
 
 
@@ -57,6 +59,7 @@ public:
     /**Timer count int, not used*/
     int timercount;
     void startGame();
+    void createComet();
  
 protected:
     void keyPressEvent(QKeyEvent *e);
@@ -114,8 +117,14 @@ private:
     QPixmap *chris;
     Chris* avatar;
     
+    QPixmap *comet;
+    Comet* thecomet;
+    bool isComet;
     
+    QPixmap *ship;
+    Ship* spaceship;
 
+    MyList<Thing*>* thinglist;
 
 public slots:
     /**Slot to handle timer*/

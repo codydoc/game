@@ -6,6 +6,7 @@ Chris::Chris(QPixmap* pm,int nx, int ny):Thing(pm,nx,ny)
 {
   x=nx;
   y=ny;
+  //setPos(x,y);
 }
 
 void Chris::move()

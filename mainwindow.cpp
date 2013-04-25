@@ -8,8 +8,13 @@ Function should handle where the timer connects, then start the timer
 */
 void MainWindow::handleTimer() {
     
-    
+   timercount++; 
    avatar->move();
+      
+  
+   createComet();
+   thecomet->setXY(thecomet->getX()-5,avatar->getY());
+   thecomet->move();
       
       //input determines state/position of the object
       //timer actually updates the position
@@ -23,9 +28,25 @@ Closes the window
 */
 void MainWindow::close(){window->close();}
 
+void MainWindow::createComet()
+{
+    if(isComet==false)
+    {
+    std::cout<<"Adding comet"<<std::endl;
+    QString title("comet.png");
+    comet = new QPixmap(title);
+    thecomet = new Comet(comet,490,10);
+    scene->addItem(thecomet);
+     
+    thinglist->push_back(thecomet);
+    isComet=true;
+    }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
   
+ // QWidget::keyPressEvent(e);
   std::cout<< "IN KEY PRESS EVENT"<<std::endl;
   //error->insertPlainText("In key press");
   
@@ -42,7 +63,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
 void MainWindow::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
-  
+  avatar->setXY(avatar->getX()+5,avatar->getY()+5);
   std::cout<<"MOUSE PRESSED..."<<std::endl;
 }
 
@@ -75,13 +96,18 @@ void MainWindow::startGame() //Implement gameplay here
     chris = new QPixmap(title);
     avatar = new Chris(chris,30,160);
     scene->addItem(avatar);
+    
+    QString t1("spaceship.png");
+    ship = new QPixmap(t1);
+    spaceship = new Ship(ship,0,288);
+    scene->addItem(spaceship);
 }
  
 
 void MainWindow::pauseb() //change what is happening in here to the keypress event
 {
    
-   avatar->setXY(avatar->getX()+5,avatar->getY()+5);
+   avatar->setXY(avatar->getX(),avatar->getY()+10);
    
    
    error->clear();
@@ -98,7 +124,7 @@ All formatting of basic GUI occurs here
 */
 MainWindow::MainWindow()  {
     
-
+ 
     window= new QWidget;
     
     //setFocusPolicy(Qt::StrongFocus);
@@ -110,9 +136,9 @@ MainWindow::MainWindow()  {
 
     //TIMER CALL - SET UP
     timer = new QTimer(this);
-    timer->setInterval(1000);
+    timer->setInterval(50); //was 1000
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
-
+    timercount=0;
 
     start= new QPushButton("Start Game");
     quit= new QPushButton("Quit");
@@ -191,7 +217,8 @@ MainWindow::MainWindow()  {
     	
    scene->addItem(bgitem);
   
-
+   thinglist = new MyList<Thing*>;
+   isComet=false;
 }
 
 
@@ -236,7 +263,7 @@ MainWindow::~MainWindow()
     delete horlay4;
     delete horlay5;
 
-
+    delete thinglist;
 
     
     
