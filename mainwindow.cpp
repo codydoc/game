@@ -37,18 +37,22 @@ void MainWindow::destroyComet(Comet* com)
       scene->removeItem(com);
       thinglist->remove(com);
       //delete com;
+      isComet=false;
     }
   }
 }
 
 void MainWindow::createComet()
 {
+    int random;
+    random = rand() %300;
+    
     if(isComet==false)
     {
     std::cout<<"Adding comet"<<std::endl;
     QString title("comet.png");
     comet = new QPixmap(title);
-    thecomet = new Comet(comet,490,90,this);
+    thecomet = new Comet(comet,490,random,this);
     scene->addItem(thecomet);
      
     thinglist->push_back(thecomet);
