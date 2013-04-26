@@ -11,10 +11,24 @@ void MainWindow::handleTimer() {
    timercount++; 
    avatar->move();
       
-  
+   if(timercount%20==0)
+   {mainscore+=10;
+   QString s;
+   scorebox->clear();
+   scorebox->insertPlainText(s.setNum(mainscore));}
+   
    createComet();
    thecomet->setXY(thecomet->getX()-5,avatar->getY());
    thecomet->move();
+   
+   int randalien = rand()%250+1;
+   
+   if(timercount%randalien==0)
+   {createAlien();
+   }
+   
+   if(isAlien==true && timercount%20==0)
+   {alien->move();}
       
       //input determines state/position of the object
       //timer actually updates the position
@@ -42,6 +56,23 @@ void MainWindow::destroyComet(Comet* com)
   }
 }
 
+
+void MainWindow::killAlien(Alien* ali)
+{
+  for(int i=0;i<thinglist->size();i++)
+  {
+    if(thinglist->at(i)==ali)
+    {
+      scene->removeItem(ali);
+      thinglist->remove(ali);
+      //delete com;
+      isAlien=false;
+    }
+  }
+  
+  mainscore+=100;
+}
+
 void MainWindow::createComet()
 {
     int random;
@@ -59,6 +90,25 @@ void MainWindow::createComet()
     isComet=true;
     }
 }
+
+void MainWindow::createAlien()
+{
+    int randomx;
+    randomx=rand()%400+75;
+    int randomy;
+    randomy = rand() %300+15;
+    
+    if(isAlien==false){
+    std::cout<<"Adding alien"<<std::endl;
+    QString title("alien.png");
+    ali = new QPixmap(title);
+    alien = new Alien(ali,randomx,randomy,this);
+    scene->addItem(alien);
+    isAlien=true;
+    thinglist->push_back(alien);}
+
+}
+
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
@@ -105,6 +155,9 @@ void MainWindow::startButton()
   startGame();
   
   timer->start(); 
+  
+  QString s;
+  scorebox->insertPlainText(s.setNum(mainscore));
  
  
 }
@@ -163,13 +216,13 @@ MainWindow::MainWindow()  {
     timer = new QTimer(this);
     timer->setInterval(50); //was 1000
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
-    timercount=0;
+    timercount=1;
 
     start= new QPushButton("Start Game");
     quit= new QPushButton("Quit");
     pause = new QPushButton("Pause");
     
-
+    mainscore=0;
 
     connect(start,SIGNAL(clicked()),this,SLOT(startButton()));
     connect(quit,SIGNAL(clicked()),this,SLOT(close()));
@@ -253,6 +306,7 @@ MainWindow::MainWindow()  {
   
    thinglist = new MyList<Thing*>;
    isComet=false;
+   isAlien=false;
    
    
 }
