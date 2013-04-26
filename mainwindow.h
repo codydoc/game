@@ -13,11 +13,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QtGui/QApplication>
+#include <QInputDialog>
 #include <QLabel>
 #include <QRadioButton>
 #include <QListView>
 #include <QString>
 #include <QGridLayout>
+#include <QMessageBox>
 #include <QKeyEvent>
 #include <iostream>
 #include <cstdlib>
@@ -86,7 +88,7 @@ private:
     QWidget *window;
     
     /**Size input*/
-    QTextEdit *tbox1;
+    QLabel *tbox1;
     /**NuminitMoves input*/
     QTextEdit *tbox2;
     /**Seed input*/
@@ -127,6 +129,10 @@ private:
     Ship* spaceship;
 
     MyList<Thing*>* thinglist;
+    
+    QMessageBox *startm;
+    QInputDialog *inputname;
+    QString playername;
 
 public slots:
     /**Slot to handle timer*/

@@ -94,6 +94,8 @@ void MainWindow::startButton()
   error->clear();
   error->insertPlainText("Start Button was pressed");
   
+  startm->setText("Welcome to Chris Hadfield Defends Earth!\n\n Use the arrow keys to move Chris up and down.\n Avoid asteroids, UFOs, and comets.\nUse your mouse to click on and kill aliens. \nFor each alien you kill, you get 100 bonus points. \nYou have three lives");
+  startm->exec();
   
   scene->removeItem(bgitem);
   startGame();
@@ -169,8 +171,14 @@ MainWindow::MainWindow()  {
     connect(quit,SIGNAL(clicked()),this,SLOT(close()));
     connect(pause,SIGNAL(clicked()),this,SLOT(pauseb()));
    
+   inputname= new QInputDialog;
+   bool ok=false;
     
-    tbox1= new QTextEdit("Please enter your name:"); //Enter Size
+   playername = inputname->getText(this, tr("QInputDialog::getText()"),
+                                         tr("User name:"), QLineEdit::Normal,
+                                         tr("Type your name here"), &ok);
+    
+    tbox1= new QLabel("Welcome "+ playername); //Enter Size
 
     error = new QTextEdit("Message Box");
     
@@ -189,6 +197,8 @@ MainWindow::MainWindow()  {
     livesbox->setMaximumWidth(40);
     
     //grabKeyboard(); //new dummy class that derives from qgraphicsview that has keypressevents
+    
+    startm = new QMessageBox();
     
     //IMAGES
     QString title1("ChrisTitle.png");
@@ -239,6 +249,8 @@ MainWindow::MainWindow()  {
   
    thinglist = new MyList<Thing*>;
    isComet=false;
+   
+   
 }
 
 
