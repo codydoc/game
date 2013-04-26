@@ -25,4 +25,10 @@ moc_mainwindow.cpp
 thing.cpp~
 thing.h~
 .gitignore~
+alien.cpp~
+alien.h~
+comet.cpp~
+comet.h~
+ship.cpp~
+ship.h~
 
