@@ -215,11 +215,23 @@ void MainWindow::startGame() //Implement gameplay here
 void MainWindow::pauseb() //change what is happening in here to the keypress event
 {
    
-   //avatar->setXY(avatar->getX(),avatar->getY()+10);
+        if(timer->isActive())
+	{timer->stop();
+	pause->setText("Resume");
+	error->clear();
+        error->insertPlainText("Game paused...");
+	
+	}
+
+	else if(!timer->isActive())
+	{timer->start();
+	pause->setText("Pause");
+	error->clear();
+        error->insertPlainText("Game resumed!");
+	}
    
    
-   error->clear();
-   error->insertPlainText("Pause button pressed...");
+  
 }
 
 void MainWindow::redeemLife()
