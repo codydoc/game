@@ -15,7 +15,8 @@ void MainWindow::handleTimer() {
    {mainscore+=10;
    QString s;
    scorebox->clear();
-   scorebox->insertPlainText(s.setNum(mainscore));}
+   scorebox->insertPlainText(s.setNum(mainscore));
+   error->clear();}
    
    createComet();
    thecomet->setXY(thecomet->getX()-5,avatar->getY());
@@ -27,8 +28,19 @@ void MainWindow::handleTimer() {
    {createAlien();
    }
    
-   if(isAlien==true && timercount%20==0)
+   if(isAlien==true && timercount%10==0)
    {alien->move();}
+   
+   int randsauce = rand()%150+1;
+   if(timercount%randsauce==0)
+   {
+     createSaucer();
+   }
+   
+   if(isSaucer)
+   {
+     sauceship->move();
+   }
       
       //input determines state/position of the object
       //timer actually updates the position
@@ -66,6 +78,8 @@ void MainWindow::killAlien(Alien* ali)
       scene->removeItem(ali);
       thinglist->remove(ali);
       //delete com;
+      error->clear();
+      error->insertPlainText("You killed the alien! +100 points");
       isAlien=false;
     }
   }
@@ -106,6 +120,23 @@ void MainWindow::createAlien()
     scene->addItem(alien);
     isAlien=true;
     thinglist->push_back(alien);}
+
+}
+
+void MainWindow::createSaucer()
+{
+    
+    int randomy;
+    randomy = rand() %300+15;
+    
+    if(isSaucer==false){
+    std::cout<<"Adding saucer"<<std::endl;
+    QString title("saucer.png");
+    sauce = new QPixmap(title);
+    sauceship = new Saucer(sauce,490,randomy,this);
+    scene->addItem(sauceship);
+    isSaucer=true;
+    thinglist->push_back(sauceship);}
 
 }
 
@@ -158,6 +189,9 @@ void MainWindow::startButton()
   
   QString s;
   scorebox->insertPlainText(s.setNum(mainscore));
+  
+  QString p;
+  livesbox->insertPlainText(p.setNum(livesleft));
  
  
 }
@@ -202,7 +236,12 @@ All formatting of basic GUI occurs here
 */
 MainWindow::MainWindow()  {
     
- 
+   inputname= new QInputDialog;
+   bool ok=false;
+   playername = inputname->getText(this, tr("QInputDialog::getText()"),
+                                         tr("User name:"), QLineEdit::Normal,
+                                         tr("Type your name here"), &ok);
+ if(ok){
     window= new QWidget;
     
     //setFocusPolicy(Qt::StrongFocus);
@@ -228,12 +267,8 @@ MainWindow::MainWindow()  {
     connect(quit,SIGNAL(clicked()),this,SLOT(close()));
     connect(pause,SIGNAL(clicked()),this,SLOT(pauseb()));
    
-   inputname= new QInputDialog;
-   bool ok=false;
-    
-   playername = inputname->getText(this, tr("QInputDialog::getText()"),
-                                         tr("User name:"), QLineEdit::Normal,
-                                         tr("Type your name here"), &ok);
+   
+                                         
     
     tbox1= new QLabel("Welcome "+ playername); //Enter Size
 
@@ -307,8 +342,10 @@ MainWindow::MainWindow()  {
    thinglist = new MyList<Thing*>;
    isComet=false;
    isAlien=false;
+   isSaucer=false;
+   livesleft=3;
    
-   
+   }
 }
 
 

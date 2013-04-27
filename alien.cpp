@@ -14,8 +14,8 @@ Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 void Alien::move()
 {
   
-   int randx = rand()%210+1;
-   int randy = rand()%210+1;  
+   int randx = rand()%200+1;
+   int randy = rand()%200+1;  
    
    int newx;
    int newy;
@@ -23,8 +23,8 @@ void Alien::move()
    newx = x+ randx;
    newy= y+randy;
    
-   if(x>0 && newx<350 && newy<350)
-   {std::cout<< "MOVING! In Comet\n";
+   if(x>0 && newx<350 && newy<340)
+   {std::cout<< "MOVING! In Alien\n";
    setX(x+randx);
    setY(y+randy);
    

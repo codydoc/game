@@ -32,6 +32,7 @@
 #include "comet.h"
 #include "ship.h"
 #include "alien.h"
+#include "saucer.h"
 
 
 
@@ -67,6 +68,7 @@ public:
     void destroyComet(Comet*);
     void killAlien(Alien*);
     void createAlien();
+    void createSaucer();
  
 protected:
     void keyPressEvent(QKeyEvent *e); //grabkeyboard
@@ -134,6 +136,10 @@ private:
     QPixmap *ali;
     Alien* alien;
     bool isAlien;
+    
+    QPixmap *sauce;
+    Saucer* sauceship;
+    bool isSaucer;
 
     MyList<Thing*>* thinglist;
     
@@ -142,6 +148,7 @@ private:
     QString playername;
     
     int mainscore;
+    int livesleft;
 
 public slots:
     /**Slot to handle timer*/
