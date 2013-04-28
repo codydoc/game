@@ -20,7 +20,7 @@ void Alien::move()
    cx= cx+ randx;
    cy= cy+randy;
 
-   std::cout<< "MOVING! In Alien\n";
+   //std::cout<< "MOVING! In Alien\n";
   
    if(cx<0)
    {

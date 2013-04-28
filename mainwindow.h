@@ -84,6 +84,8 @@ private:
     QGraphicsView *view;
     /**QTimer*/
     QTimer *timer;
+    /**Timer interval*/
+    int timerint;
     /**Start Button*/
     QPushButton *start;
     /**Exit button*/

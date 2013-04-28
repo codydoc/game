@@ -64,46 +64,51 @@ void MainWindow::close(){window->close();}
 
 void MainWindow::destroyComet(Comet* com)
 {
+  scene->removeItem(com);
+  isComet=false;
+  
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==com)
     {
       std::cout<<"DESTROYING COMET"<<std::endl;
-      scene->removeItem(com);
       thinglist->remove(com);
       //delete com; //need to make sure not a ton of memory leaks here
-      isComet=false;
     }
   }
 }
 
 void MainWindow::destroyMeteor(Meteor* met)
 {
+  scene->removeItem(met);
+  isMeteor=false;
+  
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==met)
     {
       std::cout<<"DESTROYING METEOR"<<std::endl;
-      scene->removeItem(met);
       thinglist->remove(met);
       //delete com;
-      isMeteor=false;
+      
     }
   }
 }
 
 void MainWindow::killAlien(Alien* ali)
 {
+
+  scene->removeItem(ali);
+  isAlien=false;
+  error->clear();
+  error->insertPlainText("You killed the alien! +100 points");
+  
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==ali)
     {
-      scene->removeItem(ali);
       thinglist->remove(ali);
       //delete com;
-      error->clear();
-      error->insertPlainText("You killed the alien! +100 points");
-      isAlien=false;
     }
   }
   
@@ -113,14 +118,14 @@ void MainWindow::killAlien(Alien* ali)
 void MainWindow::createComet()
 {
     int random;
-    random = rand() %300;
+    random = rand() %300+10;
     
     if(isComet==false)
     {
     std::cout<<"Adding comet"<<std::endl;
     QString title("comet.png");
     comet = new QPixmap(title);
-    thecomet = new Comet(comet,490,random,this);
+    thecomet = new Comet(comet,450,random,this);
     scene->addItem(thecomet);
      
     thinglist->push_back(thecomet);
@@ -131,14 +136,14 @@ void MainWindow::createComet()
 void MainWindow::createMeteor()
 {
     int random;
-    random = rand() %250;
+    random = rand() %250+50;
     
     if(isMeteor==false)
     {
     std::cout<<"Adding meteor"<<std::endl;
     QString title("asteroid.png");
     met = new QPixmap(title);
-    meteorite = new Meteor(met,490,random,this);
+    meteorite = new Meteor(met,350,random,this);
     scene->addItem(meteorite);
      
     thinglist->push_back(meteorite);
@@ -308,8 +313,9 @@ MainWindow::MainWindow()  {
     QVBoxLayout *main = new QVBoxLayout;
 
     //TIMER CALL - SET UP
+    timerint=50;
     timer = new QTimer(this);
-    timer->setInterval(50); //was 1000
+    timer->setInterval(timerint); //was 1000
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
     timercount=1;
 
@@ -370,6 +376,9 @@ MainWindow::MainWindow()  {
     scene = new QGraphicsScene();
     view = new QGraphicsView( scene );
     view->setFixedSize( WINDOW_MAX_X, WINDOW_MAX_Y );
+    
+    QBrush brush(Qt::black);
+    scene->setBackgroundBrush(brush);
     
     horlay->addWidget(tbox1);
 

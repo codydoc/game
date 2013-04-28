@@ -15,7 +15,7 @@ Saucer::Saucer(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 
 void Saucer::move()
 {
-   std::cout<< "MOVING! In Saucer\n";
+   //std::cout<< "MOVING! In Saucer\n";
    
    cx-=vX;
    cy-=vY;

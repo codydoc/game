@@ -14,7 +14,7 @@ Comet::Comet(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 void Comet::move()
 {
    if(cx>5)
-   {std::cout<< "MOVING! In Comet\n";
+   {//std::cout<< "MOVING! In Comet\n";
    cx-=5;
    setX(cx-5);
    

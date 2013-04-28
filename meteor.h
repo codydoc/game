@@ -33,6 +33,7 @@ class Meteor: public Thing {
    void setXY(int,int);
    int getX();
    int getY();
+   int rotation;
    
   private:
   int cx;
