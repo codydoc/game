@@ -5,23 +5,23 @@
 
 Comet::Comet(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
-  x=nx;
-  y=ny;
+  cx=nx;
+  cy=ny;
   //setPos(x,y);
   mw=mainw;
 }
 
 void Comet::move()
 {
-   if(x>0)
+   if(cx>5)
    {std::cout<< "MOVING! In Comet\n";
-   //setPos(x,y);
-   setX(x);
+   cx-=5;
+   setX(cx-5);
    
    }
    
    else
-   {x=400;
+   {//cx=400;
    mw->destroyComet(this);
    //call a self destruct or destruct function in mainwindow so that this is deleted if it gets this far
    }

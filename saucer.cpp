@@ -22,7 +22,7 @@ void Saucer::move()
    
    if(cx>0)
    {
-      if(y<350)
+      if(cy<330 && cy>0)
       {
         cx-=vX;
         cy-=vY;
@@ -30,7 +30,7 @@ void Saucer::move()
         setY(cy);
       }
       
-      if(y>350 || y<0)
+      if(cy>330 || cy<0)
       {
       vY=-vY;
       cy-=vY;

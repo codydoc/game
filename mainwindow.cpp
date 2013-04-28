@@ -19,7 +19,6 @@ void MainWindow::handleTimer() {
    error->clear();}
    
    createComet();
-   thecomet->setXY(thecomet->getX()-5,avatar->getY());
    thecomet->move();
    
    int randalien = rand()%250+1;
@@ -28,7 +27,7 @@ void MainWindow::handleTimer() {
    {createAlien();
    }
    
-   if(isAlien==true && timercount%10==0)
+   if(isAlien==true && timercount%50==0)
    {alien->move();}
    
    int randsauce = rand()%150+1;
@@ -114,7 +113,7 @@ void MainWindow::createAlien()
     
     if(isAlien==false){
     std::cout<<"Adding alien"<<std::endl;
-    QString title("alien.png");
+    QString title("a1.png");
     ali = new QPixmap(title);
     alien = new Alien(ali,randomx,randomy,this);
     scene->addItem(alien);
@@ -236,7 +235,10 @@ void MainWindow::pauseb() //change what is happening in here to the keypress eve
 
 void MainWindow::redeemLife()
 {
-  livesbox->insertPlainText("1"); //set this to lifecount...
+  QString s;
+  livesleft++;
+  livesbox->clear();
+  livesbox->insertPlainText(s.setNum(livesleft)); //set this to lifecount...
 }
 
 /**

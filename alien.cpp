@@ -5,8 +5,8 @@
 
 Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
-  x=nx;
-  y=ny;
+  cx=nx;
+  cy=ny;
   //setPos(x,y);
   mw=mainw;
 }
@@ -14,28 +14,43 @@ Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 void Alien::move()
 {
   
-   int randx = rand()%200+1;
-   int randy = rand()%200+1;  
+   int randx = rand()%75-75;
+   int randy = rand()%75-75;  
    
-   int newx;
-   int newy;
-   
-   newx = x+ randx;
-   newy= y+randy;
-   
-   if(x>0 && newx<350 && newy<340)
-   {std::cout<< "MOVING! In Alien\n";
-   setX(x+randx);
-   setY(y+randy);
-   
+   cx= cx+ randx;
+   cy= cy+randy;
+
+   std::cout<< "MOVING! In Alien\n";
+  
+   if(cx<0)
+   {
+     cx=cx-4*(randx);
    }
+   
+   if(cx>400)
+   {
+     cx=cx-4*(randx);
+   }
+   
+   if(cy<0)
+   {
+     cy=cy-4*(randy);
+   }
+   
+   if(cy>360)
+   {
+     cy=cy-4*(randy);
+   }
+ 
+   setX(cx);
+   setY(cy);
    
 }
 
 void Alien::setXY(int nx,int ny)
 {
-  x=nx;
-  y=ny;
+  cx=nx;
+  cy=ny;
 }
 
 void Alien::mousePressEvent(QGraphicsSceneMouseEvent* e)
@@ -44,7 +59,7 @@ void Alien::mousePressEvent(QGraphicsSceneMouseEvent* e)
 }
 
 int Alien::getX()
-{return x;}
+{return cx;}
 
 int Alien::getY()
-{return y;}
+{return cy;}
