@@ -69,6 +69,7 @@ public:
     void destroyComet(Comet*);
     void destroyMeteor(Meteor*);
     void killAlien(Alien*);
+    void destroySaucer(Saucer*);
     void createAlien();
     void createSaucer();
     void createMeteor();
@@ -158,6 +159,7 @@ private:
     
     int mainscore;
     int livesleft;
+    bool hasStarted;
 
 public slots:
     /**Slot to handle timer*/

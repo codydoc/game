@@ -43,8 +43,8 @@ void Saucer::move()
 //setPos(x,y);
    
    else
-   {cx=400;
-   //mw->destroyComet(this); //change to destroy saucer
+   {//cx=400;
+   mw->destroySaucer(this); //change to destroy saucer
    //call a self destruct or destruct function in mainwindow so that this is deleted if it gets this far
    }
 }

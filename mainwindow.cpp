@@ -10,6 +10,29 @@ void MainWindow::handleTimer() {
     
    timercount++; 
    avatar->move();
+   
+   std::cout<<"LIST SIZE: "<<thinglist->size()<<std::endl;
+   
+   for(int i=0;i<thinglist->size();i++)
+   {
+     if(avatar->collidesWithItem(thinglist->at(i)))
+     {
+       mainscore-=200;
+       QString s;
+       livesleft--;
+       livesbox->clear();
+       livesbox->insertPlainText(s.setNum(livesleft));
+       
+       QString m;
+       scorebox->clear();
+       scorebox->insertPlainText(m.setNum(mainscore));
+       
+       error->clear();
+       error->insertPlainText("Oh no! You lost a life!");
+       
+     }
+   
+   }
       
    if(timercount%20==0)
    {mainscore+=10;
@@ -89,6 +112,23 @@ void MainWindow::destroyMeteor(Meteor* met)
     {
       std::cout<<"DESTROYING METEOR"<<std::endl;
       thinglist->remove(met);
+      //delete com;
+      
+    }
+  }
+}
+
+void MainWindow::destroySaucer(Saucer* sau)
+{
+  scene->removeItem(sau);
+  isSaucer=false;
+  
+  for(int i=0;i<thinglist->size();i++)
+  {
+    if(thinglist->at(i)==sau)
+    {
+      std::cout<<"DESTROYING SAUCER"<<std::endl;
+      thinglist->remove(sau);
       //delete com;
       
     }
@@ -222,6 +262,10 @@ Start Button Function
 */
 void MainWindow::startButton()
 { 
+ 
+  
+  if(!hasStarted)
+  {
   error->clear();
   error->insertPlainText("Start Button was pressed");
   
@@ -239,6 +283,14 @@ void MainWindow::startButton()
   QString p;
   livesbox->insertPlainText(p.setNum(livesleft));
  
+  hasStarted=true;
+  }
+  
+  else
+  {
+  error->clear();
+  error->insertPlainText("The game has already been started!");
+  }
  
 }
 
@@ -411,6 +463,7 @@ MainWindow::MainWindow()  {
    isMeteor=false;
    
    livesleft=3;
+   hasStarted=false;
    
    }
 }
