@@ -9,7 +9,11 @@ Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   cy=ny;
   //setPos(x,y);
   mw=mainw;
+  name="Alien";
 }
+
+Alien::~Alien()
+{}
 
 void Alien::move()
 {
@@ -27,7 +31,7 @@ void Alien::move()
      cx=cx-4*(randx);
    }
    
-   if(cx>400)
+   if(cx>300)
    {
      cx=cx-4*(randx);
    }
@@ -63,3 +67,6 @@ int Alien::getX()
 
 int Alien::getY()
 {return cy;}
+
+std::string Alien::getName()
+{return name;}

@@ -29,11 +29,13 @@ class Ship: public Thing {
   
   public:
    Ship(QPixmap *pm,int nx, int ny,MainWindow* mw);
+   ~Ship();
    void move();
    void setXY(int,int);
    int getX();
    int getY();
    void mousePressEvent(QGraphicsSceneMouseEvent *e);
+   std::string getName();
    
   private:
   int x;
@@ -43,6 +45,7 @@ class Ship: public Thing {
   QPixmap *pixmap;
   bool hasLife;
   MainWindow *mw;
+  std::string name;
 
 };
 

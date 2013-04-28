@@ -34,6 +34,7 @@ class Meteor: public Thing {
    int getX();
    int getY();
    int rotation;
+   std::string getName();
    
   private:
   int cx;
@@ -42,6 +43,7 @@ class Meteor: public Thing {
   int vY;
   QPixmap *pixmap;
   MainWindow *mw;
+  std::string name;
 
 };
 

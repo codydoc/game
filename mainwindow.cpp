@@ -8,6 +8,8 @@ Function should handle where the timer connects, then start the timer
 */
 void MainWindow::handleTimer() {
     
+   if(livesleft>0)
+   {
    timercount++; 
    avatar->move();
    
@@ -17,7 +19,7 @@ void MainWindow::handleTimer() {
    {
      if(avatar->collidesWithItem(thinglist->at(i)))
      {
-       mainscore-=200;
+       mainscore-=10;
        QString s;
        livesleft--;
        livesbox->clear();
@@ -30,31 +32,39 @@ void MainWindow::handleTimer() {
        error->clear();
        error->insertPlainText("Oh no! You lost a life!");
        
+       std::cout<<"BEING HIT BY"<<thinglist->at(i)->getName()<<std::endl;
+       scene->removeItem(thinglist->at(i));
+       thinglist->remove(thinglist->at(i));
+       
      }
    
    }
       
    if(timercount%20==0)
-   {mainscore+=10;
+   {mainscore+=1000;
    QString s;
    scorebox->clear();
    scorebox->insertPlainText(s.setNum(mainscore));
    error->clear();}
    
+   if(!isComet)
+   {
    createComet();
-   thecomet->move();
+   }
+   
+   if(isComet)
+   {thecomet->move();}
    
    int randalien = rand()%250+1;
    
    if(timercount%randalien==0)
-   {createAlien();
-   }
+   {createAlien();}
    
    if(isAlien==true && timercount%50==0)
    {alien->move();}
    
    int randsauce = rand()%150+1;
-   if(timercount%randsauce==0)
+   if(!isSaucer && timercount%randsauce==0)
    {
      createSaucer();
    }
@@ -65,7 +75,7 @@ void MainWindow::handleTimer() {
    }
    
    int randmet = rand()%150+1;
-   if(timercount%randmet==0)
+   if(!isMeteor && timercount%randmet==0)
    {
      createMeteor();
    }
@@ -75,8 +85,25 @@ void MainWindow::handleTimer() {
      meteorite->move();
    }
    
-      
-
+ }
+ 
+ else
+ {error->clear();
+ error->insertPlainText("Game Over");
+ timer->stop();
+ startm->setText("Game Over!");
+ startm->exec();
+ 
+ for(int j=0;j<thinglist->size();j++)
+ {
+   scene->removeItem(thinglist->at(j));
+   avatar->setXY(300,300);
+   avatar->move();
+ }
+ }     
+  
+  
+  
 }
 
 /**
@@ -87,6 +114,9 @@ void MainWindow::close(){window->close();}
 
 void MainWindow::destroyComet(Comet* com)
 {
+
+  if(isComet==true)
+  {
   scene->removeItem(com);
   isComet=false;
   
@@ -94,32 +124,46 @@ void MainWindow::destroyComet(Comet* com)
   {
     if(thinglist->at(i)==com)
     {
-      std::cout<<"DESTROYING COMET"<<std::endl;
-      thinglist->remove(com);
+      if(thinglist->remove(com)){std::cout<<"DESTROYING COMET"<<std::endl;
+      trashlist->push_back(com);
+      }
       //delete com; //need to make sure not a ton of memory leaks here
+      else{std::cout<<"FAILED TO DESTROY COMET"<<std::endl;}
     }
+  }
   }
 }
 
 void MainWindow::destroyMeteor(Meteor* met)
 {
+  if(isMeteor==true)
+  {
   scene->removeItem(met);
-  isMeteor=false;
   
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==met)
     {
+      
+      if(thinglist->remove(met)){
+      isMeteor=false;
       std::cout<<"DESTROYING METEOR"<<std::endl;
-      thinglist->remove(met);
+      trashlist->push_back(met);
+      }
       //delete com;
+      else{std::cout<<"FAILED TO DESTROY METEOR"<<std::endl;}
       
     }
   }
+  }
+  
+  if(isMeteor==false){std::cout<<"meteor destroyed"<<std::endl;}
 }
 
 void MainWindow::destroySaucer(Saucer* sau)
 {
+  if(isSaucer==true)
+  {
   scene->removeItem(sau);
   isSaucer=false;
   
@@ -129,15 +173,19 @@ void MainWindow::destroySaucer(Saucer* sau)
     {
       std::cout<<"DESTROYING SAUCER"<<std::endl;
       thinglist->remove(sau);
+      trashlist->push_back(sau);
       //delete com;
       
     }
+  }
   }
 }
 
 void MainWindow::killAlien(Alien* ali)
 {
-
+  
+  if(isAlien==true)
+  {
   scene->removeItem(ali);
   isAlien=false;
   error->clear();
@@ -148,11 +196,13 @@ void MainWindow::killAlien(Alien* ali)
     if(thinglist->at(i)==ali)
     {
       thinglist->remove(ali);
-      //delete com;
+      trashlist->push_back(ali);
+      //delete ali; //for some reason cannot delete
     }
   }
   
   mainscore+=100;
+  }
 }
 
 void MainWindow::createComet()
@@ -194,7 +244,7 @@ void MainWindow::createMeteor()
 void MainWindow::createAlien()
 {
     int randomx;
-    randomx=rand()%400+75;
+    randomx=rand()%300+75;
     int randomy;
     randomy = rand() %300+15;
     
@@ -249,7 +299,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
 void MainWindow::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
-  avatar->setXY(avatar->getX()+5,avatar->getY()+5);
+  //avatar->setXY(avatar->getX()+5,avatar->getY()+5);
   std::cout<<"MOUSE PRESSED..."<<std::endl;
 }
 
@@ -400,7 +450,7 @@ MainWindow::MainWindow()  {
     scorebox->setReadOnly(yes);
     livesbox->setMaximumHeight(30);
     scorebox->setMaximumHeight(30);
-    livesbox->setMaximumWidth(40);
+    livesbox->setMaximumWidth(60);
     
     //grabKeyboard(); //new dummy class that derives from qgraphicsview that has keypressevents
     
@@ -457,6 +507,7 @@ MainWindow::MainWindow()  {
    scene->addItem(bgitem);
   
    thinglist = new MyList<Thing*>;
+   trashlist = new MyList<Thing*>;
    isComet=false;
    isAlien=false;
    isSaucer=false;

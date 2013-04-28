@@ -10,7 +10,12 @@ Ship::Ship(QPixmap* pm,int nx, int ny,MainWindow* mainw):Thing(pm,nx,ny)
   //setPos(x,y);
   hasLife=false;
   mw=mainw;
+  name="Ship";
 }
+
+Ship::~Ship()
+{}
+
 
 void Ship::move()
 {
@@ -37,3 +42,9 @@ int Ship::getX()
 
 int Ship::getY()
 {return y;}
+
+std::string Ship::getName()
+{return name;}
+
+
+

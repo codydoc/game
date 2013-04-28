@@ -31,6 +31,7 @@ class Chris: public Thing {
    void setXY(int,int);
    int getX();
    int getY();
+   std::string getName();
    
   private:
   int x;
@@ -38,6 +39,7 @@ class Chris: public Thing {
   int vX;
   int vY;
   QPixmap *pixmap;
+  std::string name;
 
 };
 

@@ -33,6 +33,7 @@ class Saucer: public Thing {
    void setXY(int,int);
    int getX();
    int getY();
+   std::string getName();
    
   private:
   int cx;
@@ -41,6 +42,7 @@ class Saucer: public Thing {
   int vY;
   QPixmap *pixmap;
   MainWindow *mw;
+  std::string name;
 
 };
 

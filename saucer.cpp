@@ -11,6 +11,7 @@ Saucer::Saucer(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   mw=mainw;
   vX=2;
   vY=2;
+  name="Saucer";
 }
 
 void Saucer::move()
@@ -60,3 +61,7 @@ int Saucer::getX()
 
 int Saucer::getY()
 {return y;}
+
+std::string Saucer::getName()
+{return name;}
+

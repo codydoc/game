@@ -8,6 +8,7 @@ Chris::Chris(QPixmap* pm,int nx, int ny):Thing(pm,nx,ny)
   y=ny;
   //setPos(x,y);
   //moveby
+  name="Chris";
 }
 
 void Chris::move()
@@ -28,3 +29,7 @@ int Chris::getX()
 
 int Chris::getY()
 {return y;}
+
+std::string Chris::getName()
+{return name;}
+

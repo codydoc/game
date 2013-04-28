@@ -29,11 +29,13 @@ class Alien: public Thing {
   
   public:
    Alien(QPixmap *pm,int nx, int ny, MainWindow *mw);
+   ~Alien();
    void move();
    void setXY(int,int);
    int getX();
    int getY();
    void mousePressEvent(QGraphicsSceneMouseEvent* e);
+   std::string getName();
    
   private:
   int cx;
@@ -42,6 +44,7 @@ class Alien: public Thing {
   int vY;
   QPixmap *pixmap;
   MainWindow *mw;
+  std::string name;
 
 };
 

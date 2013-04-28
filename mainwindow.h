@@ -152,6 +152,7 @@ private:
     bool isMeteor;
 
     MyList<Thing*>* thinglist;
+    MyList<Thing*>* trashlist;
     
     QMessageBox *startm;
     QInputDialog *inputname;

@@ -12,6 +12,7 @@ Meteor::Meteor(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   rotation=0;
   vX=1;
   vY=1;
+  name="Meteor";
 }
 
 void Meteor::move()
@@ -36,8 +37,12 @@ void Meteor::move()
       setY(cy);
       cx-=vX;
       setX(cx);
-      }  
+      } 
+      
+      rotate(rotation-10); 
    }
+   
+   
    else
    {//cx=400;
    mw->destroyMeteor(this); //create destroyMeteor
@@ -47,7 +52,7 @@ void Meteor::move()
    
    //QPointF origin(10,10);
    //setTransformOriginPoint(origin);
-   rotate(rotation-10);
+   
 }
 
 void Meteor::setXY(int nx,int ny)
@@ -61,3 +66,9 @@ int Meteor::getX()
 
 int Meteor::getY()
 {return y;}
+
+std::string Meteor::getName()
+{return name;}
+
+
+

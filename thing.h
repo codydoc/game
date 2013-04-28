@@ -25,7 +25,9 @@ class Thing: public QGraphicsPixmapItem {
   
   public:
    Thing(QPixmap *pm,int nx, int ny);
+   ~Thing();
    virtual void move() = 0;
+   virtual std::string getName() = 0;
    
   protected:
   int x;

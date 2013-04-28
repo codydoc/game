@@ -10,3 +10,6 @@ Thing::Thing(QPixmap *pm,int nx, int ny)
    y=ny;
    setPos(x,y);
 }
+
+Thing::~Thing()
+{}
