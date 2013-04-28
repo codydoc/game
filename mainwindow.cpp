@@ -409,7 +409,7 @@ void MainWindow::startButton()
   error->clear();
   error->insertPlainText("Start Button was pressed");
   
-  startm->setText("Welcome to Chris Hadfield Defends Earth!\n\n Use the arrow keys to move Chris up and down.\n Avoid asteroids, UFOs, and comets.\nUse your mouse to click on and kill aliens. \nFor each alien you kill, you get 100 bonus points. \nYou have three lives");
+  startm->setText("Welcome to Chris Hadfield Defends Earth!\n\n Use the arrow keys to move Chris up and down.\n Avoid asteroids, UFOs, and comets.\nUse your mouse to click on and kill aliens. \nFor each alien you kill, you get 100 bonus points.\nWhen you kill three aliens, a heart will appear on the spaceship. Click the spaceship to redeem +1 life. \nYou have three lives");
   startm->exec();
   
   scene->removeItem(bgitem);
