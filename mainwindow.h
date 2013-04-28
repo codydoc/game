@@ -33,6 +33,7 @@
 #include "ship.h"
 #include "alien.h"
 #include "saucer.h"
+#include "meteor.h"
 
 
 
@@ -66,9 +67,11 @@ public:
     void createComet();
     void redeemLife();
     void destroyComet(Comet*);
+    void destroyMeteor(Meteor*);
     void killAlien(Alien*);
     void createAlien();
     void createSaucer();
+    void createMeteor();
  
 protected:
     void keyPressEvent(QKeyEvent *e); //grabkeyboard
@@ -140,6 +143,10 @@ private:
     QPixmap *sauce;
     Saucer* sauceship;
     bool isSaucer;
+    
+    QPixmap *met;
+    Meteor* meteorite;
+    bool isMeteor;
 
     MyList<Thing*>* thinglist;
     

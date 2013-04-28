@@ -40,11 +40,20 @@ void MainWindow::handleTimer() {
    {
      sauceship->move();
    }
+   
+   int randmet = rand()%150+1;
+   if(timercount%randmet==0)
+   {
+     createMeteor();
+   }
+   
+   if(isMeteor)
+   {
+     meteorite->move();
+   }
+   
       
-      //input determines state/position of the object
-      //timer actually updates the position
-      //so, mouse click event should change the dx/dy in teh class
-      //timer function should make sure the position is updated... ie setPos()
+
 }
 
 /**
@@ -59,14 +68,29 @@ void MainWindow::destroyComet(Comet* com)
   {
     if(thinglist->at(i)==com)
     {
+      std::cout<<"DESTROYING COMET"<<std::endl;
       scene->removeItem(com);
       thinglist->remove(com);
-      //delete com;
+      //delete com; //need to make sure not a ton of memory leaks here
       isComet=false;
     }
   }
 }
 
+void MainWindow::destroyMeteor(Meteor* met)
+{
+  for(int i=0;i<thinglist->size();i++)
+  {
+    if(thinglist->at(i)==met)
+    {
+      std::cout<<"DESTROYING METEOR"<<std::endl;
+      scene->removeItem(met);
+      thinglist->remove(met);
+      //delete com;
+      isMeteor=false;
+    }
+  }
+}
 
 void MainWindow::killAlien(Alien* ali)
 {
@@ -101,6 +125,24 @@ void MainWindow::createComet()
      
     thinglist->push_back(thecomet);
     isComet=true;
+    }
+}
+
+void MainWindow::createMeteor()
+{
+    int random;
+    random = rand() %250;
+    
+    if(isMeteor==false)
+    {
+    std::cout<<"Adding meteor"<<std::endl;
+    QString title("asteroid.png");
+    met = new QPixmap(title);
+    meteorite = new Meteor(met,490,random,this);
+    scene->addItem(meteorite);
+     
+    thinglist->push_back(meteorite);
+    isMeteor=true;
     }
 }
 
@@ -357,6 +399,8 @@ MainWindow::MainWindow()  {
    isComet=false;
    isAlien=false;
    isSaucer=false;
+   isMeteor=false;
+   
    livesleft=3;
    
    }
