@@ -10,8 +10,21 @@ void MainWindow::handleTimer() {
     
    if(livesleft>0)
    {
+   
    timercount++; 
+  
    avatar->move();
+   
+   if(timercount%1000==0)
+   {
+     timerint-=10;
+     if(timerint>0)
+     {
+     timer->setInterval(timerint);
+     }
+     else
+     {timerint+=50;}
+   }
    
    std::cout<<"LIST SIZE: "<<thinglist->size()<<std::endl;
    
