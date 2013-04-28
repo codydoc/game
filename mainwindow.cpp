@@ -30,6 +30,8 @@ void MainWindow::handleTimer() {
    
    for(int i=0;i<thinglist->size();i++)
    {
+       std::cout<<"iteminlist: "<<thinglist->at(i)->getName()<<std::endl;
+     
      if(avatar->collidesWithItem(thinglist->at(i)))
      {
        mainscore-=10;

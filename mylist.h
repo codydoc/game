@@ -120,9 +120,12 @@ bool MyList<T>::remove(T val)
 			
 			if(i<size_-1)
 			{
-				for(int j=i;j<size_-1;j++)
-				{	data_[i]=data_[i+1];
+				for(int j=i;j<size_;j++) //took away size -1
+				{	data_[j]=data_[j+1]; //changed i to j
 				}
+			
+			  size_--;
+			  return true;
 			}
 			
 			else if(i==size_-1)
@@ -131,8 +134,8 @@ bool MyList<T>::remove(T val)
 				return true;
 			}
 			
-			size_--;
-			return true;
+			//size_--;
+			//return true;
 		}
 		
 		
