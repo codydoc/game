@@ -62,6 +62,11 @@ void MainWindow::handleTimer() {
    scorebox->insertPlainText(s.setNum(mainscore));
    error->clear();}
    
+   if(alienskilled%3==0 && heartshowing==false && alienskilled>0)
+   {scene->addItem(heart);
+    heartshowing=true;
+   }
+   
    if(!isComet)
    {
      createComet();
@@ -106,7 +111,8 @@ void MainWindow::handleTimer() {
  {error->clear();
  error->insertPlainText("Game Over");
  timer->stop();
- startm->setText("Game Over!");
+ QString lose;
+ startm->setText("Game Over!\n Your score was: " + lose.setNum(mainscore));
  startm->exec();
  
  scene->clear();
@@ -263,6 +269,7 @@ void MainWindow::killAlien(Alien* ali)
   }
   */
   mainscore+=100;
+  alienskilled++;
   }
 }
 
@@ -467,6 +474,12 @@ void MainWindow::startGame() //Implement gameplay here
     random2 = rand() %250+50;
     meteorite = new Meteor(met,350,random2,this);
     
+    QString title6("heart.png");
+    hear=new QPixmap(title6);
+    heart=new QGraphicsPixmapItem(*hear);
+    heart->setX(50);
+    heart->setY(335);
+    
 }
  
 
@@ -494,10 +507,14 @@ void MainWindow::pauseb() //change what is happening in here to the keypress eve
 
 void MainWindow::redeemLife()
 {
-  QString s;
+  if(alienskilled>0 && alienskilled%3==0)
+  {QString s;
   livesleft++;
   livesbox->clear();
-  livesbox->insertPlainText(s.setNum(livesleft)); //set this to lifecount...
+  livesbox->insertPlainText(s.setNum(livesleft));
+  alienskilled=0;
+  scene->removeItem(heart);
+  } //set this to lifecount...
 }
 
 /**
@@ -623,8 +640,11 @@ MainWindow::MainWindow()  {
    isSaucer=false;
    isMeteor=false;
    
+   heartshowing=false;
+   
    livesleft=3;
    hasStarted=false;
+   alienskilled=0;
    
    }
 }

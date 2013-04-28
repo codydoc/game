@@ -161,9 +161,14 @@ private:
     QPixmap *gameo;
     QGraphicsPixmapItem *gameover;
     
+    QPixmap *hear;
+    QGraphicsPixmapItem *heart;
+    
     int mainscore;
     int livesleft;
     bool hasStarted;
+    int alienskilled;
+    bool heartshowing;
 
 public slots:
     /**Slot to handle timer*/
