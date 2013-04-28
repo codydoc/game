@@ -158,6 +158,9 @@ private:
     QInputDialog *inputname;
     QString playername;
     
+    QPixmap *gameo;
+    QGraphicsPixmapItem *gameover;
+    
     int mainscore;
     int livesleft;
     bool hasStarted;

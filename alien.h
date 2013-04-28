@@ -36,6 +36,7 @@ class Alien: public Thing {
    int getY();
    void mousePressEvent(QGraphicsSceneMouseEvent* e);
    std::string getName();
+   bool isActive;
    
   private:
   int cx;
@@ -45,6 +46,7 @@ class Alien: public Thing {
   QPixmap *pixmap;
   MainWindow *mw;
   std::string name;
+  
 
 };
 

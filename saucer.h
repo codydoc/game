@@ -34,6 +34,7 @@ class Saucer: public Thing {
    int getX();
    int getY();
    std::string getName();
+   bool isActive;
    
   private:
   int cx;

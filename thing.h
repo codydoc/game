@@ -28,6 +28,7 @@ class Thing: public QGraphicsPixmapItem {
    ~Thing();
    virtual void move() = 0;
    virtual std::string getName() = 0;
+   bool isActive;
    
   protected:
   int x;
@@ -35,6 +36,7 @@ class Thing: public QGraphicsPixmapItem {
   int vX;
   int vY;
   QPixmap *pixmap;
+  
 
 };
 

@@ -35,6 +35,7 @@ class Meteor: public Thing {
    int getY();
    int rotation;
    std::string getName();
+   bool isActive;
    
   private:
   int cx;

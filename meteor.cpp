@@ -13,6 +13,7 @@ Meteor::Meteor(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   vX=1;
   vY=1;
   name="Meteor";
+  isActive=false;
 }
 
 void Meteor::move()
@@ -57,8 +58,8 @@ void Meteor::move()
 
 void Meteor::setXY(int nx,int ny)
 {
-  x=nx;
-  y=ny;
+  cx=nx;
+  cy=ny;
 }
 
 int Meteor::getX()

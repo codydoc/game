@@ -10,6 +10,7 @@ Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   //setPos(x,y);
   mw=mainw;
   name="Alien";
+  isActive=false;
 }
 
 Alien::~Alien()
@@ -60,6 +61,7 @@ void Alien::setXY(int nx,int ny)
 void Alien::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
   mw->killAlien(this);
+  std::cout<<"MOUSE PRESSED TO KILL ALIEN"<<std::endl;
 }
 
 int Alien::getX()

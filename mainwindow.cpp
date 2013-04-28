@@ -47,7 +47,9 @@ void MainWindow::handleTimer() {
        
        std::cout<<"BEING HIT BY"<<thinglist->at(i)->getName()<<std::endl;
        scene->removeItem(thinglist->at(i));
+       ((thinglist->at(i))->isActive)=false;
        thinglist->remove(thinglist->at(i));
+       
        
      }
    
@@ -62,7 +64,7 @@ void MainWindow::handleTimer() {
    
    if(!isComet)
    {
-   createComet();
+     createComet();
    }
    
    if(isComet)
@@ -107,12 +109,24 @@ void MainWindow::handleTimer() {
  startm->setText("Game Over!");
  startm->exec();
  
+ scene->clear();
+ 
+ QString gover("game_over.jpg");
+ gameo = new QPixmap(gover);
+ gameover = new QGraphicsPixmapItem(*gameo);
+ scene->addItem(gameover);
+ 
+
+ 
+ /*
  for(int j=0;j<thinglist->size();j++)
  {
-   scene->removeItem(thinglist->at(j));
-   avatar->setXY(300,300);
-   avatar->move();
+   if((thinglist->at(j))->isActive){scene->removeItem(thinglist->at(j));}
+   (thinglist->at(j))->isActive=false;
+   //avatar->setXY(300,300);
+   //avatar->move();
  }
+ */
  }     
   
   
@@ -128,11 +142,19 @@ void MainWindow::close(){window->close();}
 void MainWindow::destroyComet(Comet* com)
 {
 
-  if(isComet==true)
+  if(/*isComet==true*/ thecomet->isActive)
   {
-  scene->removeItem(com);
-  isComet=false;
+    scene->removeItem(thecomet);
+    isComet=false;
+    thecomet->isActive=false;
   
+    if(thinglist->remove(thecomet))
+    {
+       std::cout<<"COMET DESTROYED"<<std::endl;
+       //trashlist->push_back(com);
+    }
+  
+  /*
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==com)
@@ -143,16 +165,25 @@ void MainWindow::destroyComet(Comet* com)
       //delete com; //need to make sure not a ton of memory leaks here
       else{std::cout<<"FAILED TO DESTROY COMET"<<std::endl;}
     }
-  }
-  }
+  }*/
+  } 
 }
 
 void MainWindow::destroyMeteor(Meteor* met)
 {
-  if(isMeteor==true)
+  if(/*isMeteor==true*/ meteorite->isActive)
   {
-  scene->removeItem(met);
+  scene->removeItem(meteorite);
+  isMeteor=false;
+  meteorite->isActive=false;
   
+   if(thinglist->remove(meteorite))
+   {
+    std::cout<<"DESTROYING METEOR"<<std::endl;
+    //trashlist->push_back(met);
+   }
+  
+  /*
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==met)
@@ -166,20 +197,27 @@ void MainWindow::destroyMeteor(Meteor* met)
       //delete com;
       else{std::cout<<"FAILED TO DESTROY METEOR"<<std::endl;}
       
-    }
-  }
+    } */
   }
   
-  if(isMeteor==false){std::cout<<"meteor destroyed"<<std::endl;}
+  
+  if(isMeteor==false){std::cout<<"Meteor destroyed"<<std::endl;}
 }
 
 void MainWindow::destroySaucer(Saucer* sau)
 {
-  if(isSaucer==true)
+  if(/*isSaucer==true*/ sauceship->isActive)
   {
-  scene->removeItem(sau);
+  scene->removeItem(sauceship);
   isSaucer=false;
+  sauceship->isActive=false;
   
+    if(thinglist->remove(sauceship))
+    {
+      std::cout<<"DESTROYING SAUCER"<<std::endl;
+      //trashlist->push_back(sau);
+    }
+  /*
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==sau)
@@ -190,20 +228,30 @@ void MainWindow::destroySaucer(Saucer* sau)
       //delete com;
       
     }
-  }
+  } */
   }
 }
 
 void MainWindow::killAlien(Alien* ali)
 {
   
-  if(isAlien==true)
+  std::cout<<"IN KILL ALIEN"<<std::endl;
+  
+  if(/*isAlien==true*/ alien->isActive)
   {
-  scene->removeItem(ali);
+  scene->removeItem(alien);
   isAlien=false;
+  alien->isActive=false;
   error->clear();
   error->insertPlainText("You killed the alien! +100 points");
   
+    if(thinglist->remove(alien))
+    {
+     //trashlist->push_back(ali);
+     std::cout<<"ALIEN KILLED"<<std::endl;
+    }
+  
+  /*
   for(int i=0;i<thinglist->size();i++)
   {
     if(thinglist->at(i)==ali)
@@ -213,7 +261,7 @@ void MainWindow::killAlien(Alien* ali)
       //delete ali; //for some reason cannot delete
     }
   }
-  
+  */
   mainscore+=100;
   }
 }
@@ -223,16 +271,20 @@ void MainWindow::createComet()
     int random;
     random = rand() %300+10;
     
-    if(isComet==false)
+    if(/*isComet==false*/ !thecomet->isActive)
     {
     std::cout<<"Adding comet"<<std::endl;
+    thecomet->setXY(450,random);
+    /*
     QString title("comet.png");
     comet = new QPixmap(title);
     thecomet = new Comet(comet,450,random,this);
+    */
     scene->addItem(thecomet);
      
     thinglist->push_back(thecomet);
     isComet=true;
+    thecomet->isActive=true;
     }
 }
 
@@ -241,16 +293,20 @@ void MainWindow::createMeteor()
     int random;
     random = rand() %250+50;
     
-    if(isMeteor==false)
+    if(/*isMeteor==false*/ !meteorite->isActive)
     {
     std::cout<<"Adding meteor"<<std::endl;
+    meteorite->setXY(340,random);
+    /*
     QString title("asteroid.png");
     met = new QPixmap(title);
     meteorite = new Meteor(met,350,random,this);
+    */
     scene->addItem(meteorite);
      
     thinglist->push_back(meteorite);
     isMeteor=true;
+    meteorite->isActive=true;
     }
 }
 
@@ -261,14 +317,19 @@ void MainWindow::createAlien()
     int randomy;
     randomy = rand() %300+15;
     
-    if(isAlien==false){
+    if(/*isAlien==false*/ !alien->isActive){
     std::cout<<"Adding alien"<<std::endl;
+    alien->setXY(randomx,randomy);
+    /*
     QString title("a1.png");
     ali = new QPixmap(title);
     alien = new Alien(ali,randomx,randomy,this);
+    */
     scene->addItem(alien);
+    alien->isActive=true;
+    thinglist->push_back(alien);
     isAlien=true;
-    thinglist->push_back(alien);}
+    }
 
 }
 
@@ -278,14 +339,19 @@ void MainWindow::createSaucer()
     int randomy;
     randomy = rand() %300+15;
     
-    if(isSaucer==false){
+    if(/*isSaucer==false*/ !sauceship->isActive){
     std::cout<<"Adding saucer"<<std::endl;
+    sauceship->setXY(490,randomy);
+    /*
     QString title("saucer.png");
     sauce = new QPixmap(title);
     sauceship = new Saucer(sauce,490,randomy,this);
+    */
     scene->addItem(sauceship);
+    thinglist->push_back(sauceship);
     isSaucer=true;
-    thinglist->push_back(sauceship);}
+    sauceship->isActive=true;
+    }
 
 }
 
@@ -310,11 +376,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
 }
 
+/*
 void MainWindow::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
   //avatar->setXY(avatar->getX()+5,avatar->getY()+5);
   std::cout<<"MOUSE PRESSED..."<<std::endl;
 }
+*/
 
 /**
 Start Button Function
@@ -365,11 +433,40 @@ void MainWindow::startGame() //Implement gameplay here
     chris = new QPixmap(title);
     avatar = new Chris(chris,30,160);
     scene->addItem(avatar);
+    //thinglist->push_back(avatar);
     
     QString t1("spaceship.png");
     ship = new QPixmap(t1);
     spaceship = new Ship(ship,0,288,this);
     scene->addItem(spaceship);
+    //thinglist->push_back(spaceship);
+    
+    QString title2("comet.png");
+    comet = new QPixmap(title2);
+    int random;
+    random = rand() %300+10;
+    thecomet = new Comet(comet,450,random,this);
+    
+    QString title3("saucer.png");
+    sauce = new QPixmap(title3);
+    int randomys;
+    randomys = rand() %300+15;
+    sauceship = new Saucer(sauce,490,randomys,this);
+    
+    QString title4("a1.png");
+    ali = new QPixmap(title4);
+    int randomx;
+    randomx=rand()%300+75;
+    int randomy;
+    randomy = rand() %300+15;
+    alien = new Alien(ali,randomx,randomy,this);
+    
+    QString title5("asteroid.png");
+    met = new QPixmap(title5);
+    int random2;
+    random2 = rand() %250+50;
+    meteorite = new Meteor(met,350,random2,this);
+    
 }
  
 
@@ -412,12 +509,12 @@ All formatting of basic GUI occurs here
 */
 MainWindow::MainWindow()  {
     
-   inputname= new QInputDialog;
-   bool ok=false;
-   playername = inputname->getText(this, tr("QInputDialog::getText()"),
+  inputname= new QInputDialog;
+  bool ok=false;
+  playername = inputname->getText(this, tr("QInputDialog::getText()"),
                                          tr("User name:"), QLineEdit::Normal,
                                          tr("Type your name here"), &ok);
- if(ok){
+  if(ok){
     window= new QWidget;
     
     //setFocusPolicy(Qt::StrongFocus);

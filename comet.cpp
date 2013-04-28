@@ -10,6 +10,7 @@ Comet::Comet(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   //setPos(x,y);
   mw=mainw;
   name="Comet";
+  isActive=false;
 }
 
 void Comet::move()
@@ -18,7 +19,6 @@ void Comet::move()
    {//std::cout<< "MOVING! In Comet\n";
    cx-=5;
    setX(cx-5);
-   
    }
    
    else
@@ -30,8 +30,8 @@ void Comet::move()
 
 void Comet::setXY(int nx,int ny)
 {
-  x=nx;
-  y=ny;
+  cx=nx;
+  cy=ny;
 }
 
 int Comet::getX()
