@@ -17,7 +17,7 @@ void Comet::move()
 {
    setY(cy);
    
-   if(cx>0)
+   if(cx>5)
    {//std::cout<< "MOVING! In Comet\n";
    cx-=5;
    setX(cx-5);

@@ -195,7 +195,7 @@ void MainWindow::destroySaucer()
 void MainWindow::killAlien()
 {
   
-  if( alien->isActive)
+  if(alien->isActive)
   {
   scene->removeItem(alien);
   isAlien=false;
@@ -203,10 +203,8 @@ void MainWindow::killAlien()
   error->clear();
   error->insertPlainText("You killed the alien! +100 points");
   
-    if(thinglist->remove(alien))
-    {
-     //std::cout<<"ALIEN KILLED"<<std::endl;
-    }
+  thinglist->remove(alien);
+    
   
   mainscore+=100;
   alienskilled++;
