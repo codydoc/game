@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "mainwindow.h"
 
+/**Constructor*/
 Meteor::Meteor(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
   cx=nx;
@@ -16,6 +17,7 @@ Meteor::Meteor(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   isActive=false;
 }
 
+/**Move Function*/
 void Meteor::move()
 {
    cx-=vX;
@@ -53,18 +55,22 @@ void Meteor::move()
    
 }
 
+/**Set XY Function*/
 void Meteor::setXY(int nx,int ny)
 {
   cx=nx;
   cy=ny;
 }
 
+/**Get X*/
 int Meteor::getX()
 {return x;}
 
+/**Get Y*/
 int Meteor::getY()
 {return y;}
 
+/**Get Name*/
 std::string Meteor::getName()
 {return name;}
 

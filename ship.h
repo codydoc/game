@@ -25,26 +25,45 @@
 
 class MainWindow;
 
+/**Ship Class
+Ship Object created that inherits from Thing Class
+*/
 class Ship: public Thing {
   
   public:
+   /**Constructor*/
    Ship(QPixmap *pm,int nx, int ny,MainWindow* mw);
+   /**Destructor*/
    ~Ship();
+   /**Move*/
    void move();
+   /**Set XY*/
    void setXY(int,int);
+   /**Get X*/
    int getX();
+   /**Get Y*/
    int getY();
+   /**MousePressEvent*/
    void mousePressEvent(QGraphicsSceneMouseEvent *e);
+   /**Get Name*/
    std::string getName();
    
   private:
+  /**X*/
   int x;
+  /**Y*/
   int y;
+  /**Velocity X*/
   int vX;
+  /**Velocity Y*/
   int vY;
+  /**Pixmap*/
   QPixmap *pixmap;
+  /**Has Life Bool*/
   bool hasLife;
+  /**Mainwindow Reference*/
   MainWindow *mw;
+  /**Name*/
   std::string name;
 
 };

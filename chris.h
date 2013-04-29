@@ -23,22 +23,37 @@
 
 #include "thing.h"
 
+/**Chris Class
+Chris Avatar Object inherits from THing
+*/
 class Chris: public Thing {
   
   public:
+   /**Constructor*/
    Chris(QPixmap *pm,int nx, int ny);
+   /**Move*/
    void move();
+   /**Set XY*/
    void setXY(int,int);
+   /**Get X*/
    int getX();
+   /**Get Y*/
    int getY();
+   /**Get Name*/
    std::string getName();
    
   private:
+  /**X*/
   int x;
+  /**Y*/
   int y;
+  /**Velocity X*/
   int vX;
+  /**Velocity Y*/
   int vY;
+  /**Pixmap*/
   QPixmap *pixmap;
+  /**Name*/
   std::string name;
 
 };

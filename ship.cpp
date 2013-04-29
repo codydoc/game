@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 
+/**Constructor*/
 Ship::Ship(QPixmap* pm,int nx, int ny,MainWindow* mainw):Thing(pm,nx,ny)
 {
   x=nx;
@@ -13,36 +14,44 @@ Ship::Ship(QPixmap* pm,int nx, int ny,MainWindow* mainw):Thing(pm,nx,ny)
   name="Ship";
 }
 
+/**Destructor*/
 Ship::~Ship()
 {}
 
-
+/**Move Function*/
 void Ship::move()
 {
    //std::cout<< "MOVING! In Comet\n";
    setPos(x,y);
 }
 
+/**Mouse Press Event Function
+Calls redeem life function if hasLife bool is true
+*/
 void Ship::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
-  hasLife=true; //Temporary, make this change whenever 5 aliens are killed, add "setHasLife" function in this class
+  hasLife=true; 
   
   if(hasLife==true)
   {mw->redeemLife();}
 }
 
+/**Set XY*/
 void Ship::setXY(int nx,int ny)
 {
   x=nx;
   y=ny;
 }
 
+/**Get X*/
 int Ship::getX()
 {return x;}
 
+/**Get Y*/
 int Ship::getY()
 {return y;}
 
+/**Get Name*/
 std::string Ship::getName()
 {return name;}
 
