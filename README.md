@@ -1,12 +1,12 @@
 # Game - Programming Assignments Private Repository
 ### Student Information
-  + Name: Tommy Trojan
-  + USC Email: ttrojan@usc.edu
-  + USC ID: 0123456789
+  + Name: Cody Rapp
+  + USC Email: codyrapp@usc.edu
+  + USC ID: 2079575277
 
 ### Game Information
-  + Game Name: myAwsomeGame
-  + Game Description: One sentence game description
+  + Game Name: Chris Hadfield Defends Earth
+  + Game Description: Escape the meteor, comet, and flying saucer, kill aliens, and retreat to the shuttle for extra life.
   + [Game Design Doc](GameDesignDoc.md)
 
 
@@ -14,12 +14,13 @@
 The grader should use the following procedure to compile and run the code:
 ```shell
 #Compile Instructions
-echo "Write command here"
-#Doxygen Instructions
-echo "Write command here"
+echo "qmake -project"
+echo "qmake"
+echo "make"
+
 #Command to run
-echo "Write command here"
+echo "./game_codyrapp"
+
+#Doxygen Instructions
 ```
 
-### Screenshots -- [Optional]
-You can either remove this section or add screenshots if you wish.
