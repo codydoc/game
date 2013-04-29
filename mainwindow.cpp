@@ -3,8 +3,11 @@
 
 /**
 Handle Timer Function
-@param is the pick value coming from GUITile MousePress Event
-Function should handle where the timer connects, then start the timer 
+Function handles most of gameplay as objects move relative to the main timer instances
+Moves avatar to new position set by mouseclick
+Creates and moves other Things if they are not on the board
+Checks to see if lives left is greater than zero, otherwise ends the game, clears the scene, etc.
+Also checks for collisions 
 */
 void MainWindow::handleTimer() {
     
@@ -137,10 +140,14 @@ void MainWindow::handleTimer() {
 
 /**
 Close Function
-Closes the window 
+Closes the game 
 */
 void MainWindow::close(){window->close();}
 
+/**
+Destroy Comet Function
+Destroys the comet
+*/
 void MainWindow::destroyComet()
 {
 
@@ -158,6 +165,10 @@ void MainWindow::destroyComet()
   } 
 }
 
+/**
+Destroy Meteor Function
+Destroys the meteor
+*/
 void MainWindow::destroyMeteor()
 {
   if(meteorite->isActive)
@@ -175,6 +186,10 @@ void MainWindow::destroyMeteor()
   
 }
 
+/**
+Destroy Saucer Function
+Destroys the saucer
+*/
 void MainWindow::destroySaucer()
 {
   if(sauceship->isActive)
@@ -191,6 +206,12 @@ void MainWindow::destroySaucer()
   }
 }
 
+/**
+Kill Alien Function
+Kills the alien if it is called from mousepressevent in alien class
+Gives player 100 points for killing alien
+Changes number of aliens killed count
+*/
 void MainWindow::killAlien()
 {
   
@@ -210,6 +231,10 @@ void MainWindow::killAlien()
   }
 }
 
+/**
+Create comet Function
+Adds a new comet to the scene randomly 
+*/
 void MainWindow::createComet()
 {
     int random;
@@ -228,6 +253,10 @@ void MainWindow::createComet()
     }
 }
 
+/**
+Create Meteor Function
+Adds a new meteor to the scene randomly
+*/
 void MainWindow::createMeteor()
 {
     int random;
@@ -246,6 +275,10 @@ void MainWindow::createMeteor()
     }
 }
 
+/**
+Create Alien Function
+Adds a new alien to the scene randomly 
+*/
 void MainWindow::createAlien()
 {
     int randomx;
@@ -267,6 +300,10 @@ void MainWindow::createAlien()
 
 }
 
+/**
+Create Saucer Function
+Adds a new saucer to the scene randomly
+*/
 void MainWindow::createSaucer()
 {
     
@@ -287,7 +324,11 @@ void MainWindow::createSaucer()
 
 }
 
-
+/**
+Key Press Event Function
+@argument QKeyEvent
+When the up or down arrows are pressed, changes the position of the avatar 
+*/
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
   switch(e->key())
@@ -301,6 +342,12 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 }
 
 
+/**
+Start Button Function
+Slot connected to start button, launches starting instructions pop up
+Launches start game function
+Starts the timer
+*/
 void MainWindow::startButton()
 { 
  
@@ -335,6 +382,11 @@ void MainWindow::startButton()
  
 }
 
+/**
+Start Game Function
+Adds key elements to the scene to start the game (avatar, background ship), and then
+dynamically allocates other objects to be added randomly later. 
+*/
 void MainWindow::startGame() //Implement gameplay here
 {
     scene->addItem(space1);
@@ -383,7 +435,10 @@ void MainWindow::startGame() //Implement gameplay here
     
 }
  
-
+/**
+Pause Button Function
+Pauses the game 
+*/
 void MainWindow::pauseb() 
 {
    
@@ -407,6 +462,10 @@ void MainWindow::pauseb()
   
 }
 
+/**
+Redeem Life Function
+Allows the user to press the spaceship to redeem a life when he/she has killed three aliens
+*/
 void MainWindow::redeemLife()
 {
   if(alienskilled>0 && alienskilled%3==0)
@@ -422,11 +481,10 @@ void MainWindow::redeemLife()
 }
 
 /**
-MainWindow Function
+MainWindow Constructor Function
 
-This function creates the entire GUI using buttons, QTextEdit items, radio buttons,
-scenes, views, QV and QH boxlayouts, addsWidgets to the main QWidget, and dynamically allocates all items.
-All formatting of basic GUI occurs here
+This function creates the entire GUI and game. It dynamically allocates the necessary QT elements,
+brings in all of the QPixmap items, asks the user for name input, connects buttons, etc.
 */
 MainWindow::MainWindow()  {
     
@@ -534,7 +592,6 @@ MainWindow::MainWindow()  {
    scene->addItem(bgitem);
   
    thinglist = new MyList<Thing*>;
-   trashlist = new MyList<Thing*>;
    isComet=false;
    isAlien=false;
    isSaucer=false;
@@ -619,7 +676,6 @@ MainWindow::~MainWindow()
     delete meteorite;
 
     delete thinglist;
-    delete trashlist;
     
     delete startm;
     delete inputname;
