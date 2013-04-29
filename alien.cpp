@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "mainwindow.h"
 
+/**Constructor*/
 Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
   cx=nx;
@@ -12,9 +13,13 @@ Alien::Alien(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   isActive=false;
 }
 
+/**Destructor*/
 Alien::~Alien()
 {}
 
+/**Move Function
+Moves alien to new position randomly
+*/
 void Alien::move()
 {
   
@@ -51,22 +56,29 @@ void Alien::move()
    
 }
 
+/**Sets X and Y*/
 void Alien::setXY(int nx,int ny)
 {
   cx=nx;
   cy=ny;
 }
 
+/**MousePressEvent Function
+Calls kill alien
+*/
 void Alien::mousePressEvent(QGraphicsSceneMouseEvent* e)
 {
   mw->killAlien();
 }
 
+/**Get X*/
 int Alien::getX()
 {return cx;}
 
+/**Get Y*/
 int Alien::getY()
 {return cy;}
 
+/**Gets Name*/
 std::string Alien::getName()
 {return name;}

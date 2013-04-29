@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "mainwindow.h"
 
+/**Constructor*/
 Saucer::Saucer(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 {
   cx=nx;
@@ -15,6 +16,7 @@ Saucer::Saucer(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
   isActive=false;
 }
 
+/**Move function*/
 void Saucer::move()
 {
    
@@ -48,18 +50,22 @@ void Saucer::move()
    }
 }
 
+/**XY Setter*/
 void Saucer::setXY(int nx,int ny)
 {
   cx=nx;
   cy=ny;
 }
 
+/**Get X*/
 int Saucer::getX()
 {return cx;}
 
+/**Get Y*/
 int Saucer::getY()
 {return cy;}
 
+/**Get Name*/
 std::string Saucer::getName()
 {return name;}
 

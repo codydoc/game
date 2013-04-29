@@ -25,24 +25,41 @@
 
 class MainWindow;
 
+/**Saucer Class
+Creates saucer object derived from Thing Class
+*/
 class Saucer: public Thing {
   
   public:
+  /**Constructor*/
    Saucer(QPixmap *pm,int nx, int ny, MainWindow *mw);
+   /**Move Function*/
    void move();
+   /**Set XY*/
    void setXY(int,int);
+   /**Get X*/
    int getX();
+   /**Get y*/
    int getY();
+   /**Get Name*/
    std::string getName();
+   /**Is Active Bool*/
    bool isActive;
    
   private:
+  /**X*/
   int cx;
+  /**Y*/
   int cy;
+  /**Velocity X*/
   int vX;
+  /**Velocity Y*/
   int vY;
+  /**Pixmap*/
   QPixmap *pixmap;
+  /**Mainwindow reference*/
   MainWindow *mw;
+  /**Name*/
   std::string name;
 
 };

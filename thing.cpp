@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 
+/**Constructor*/
 Thing::Thing(QPixmap *pm,int nx, int ny)
 {
    pixmap=pm;
@@ -11,5 +12,6 @@ Thing::Thing(QPixmap *pm,int nx, int ny)
    setPos(x,y);
 }
 
+/**Destructor*/
 Thing::~Thing()
 {}
