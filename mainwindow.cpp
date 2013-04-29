@@ -119,7 +119,7 @@ void MainWindow::handleTimer() {
    error->insertPlainText("Game Over");
    timer->stop();
    QString lose;
-   startm->setText("Game Over!\n Your score was: " + lose.setNum(mainscore));
+   startm->setText("Game Over!\n Your score was: " + lose.setNum(mainscore)+"\nTo restart please quit and run the program again.");
    startm->exec();
  
    scene->clear();
@@ -128,7 +128,6 @@ void MainWindow::handleTimer() {
    gameo = new QPixmap(gover);
    gameover = new QGraphicsPixmapItem(*gameo);
    scene->addItem(gameover);
- 
 
  }     
   
@@ -314,6 +313,7 @@ void MainWindow::startButton()
   startm->exec();
   
   scene->removeItem(bgitem);
+  scene->clear();
   startGame();
   
   timer->start(); 

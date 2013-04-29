@@ -73,6 +73,7 @@ public:
     void createAlien();
     void createSaucer();
     void createMeteor();
+
  
 protected:
     void keyPressEvent(QKeyEvent *e); //grabkeyboard
