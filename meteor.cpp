@@ -45,14 +45,11 @@ void Meteor::move()
    
    
    else
-   {//cx=400;
-   mw->destroyMeteor(this); //create destroyMeteor
-   //call a self destruct or destruct function in mainwindow so that this is deleted if it gets this far
+   {
+   mw->destroyMeteor(); 
    return;
    }
    
-   //QPointF origin(10,10);
-   //setTransformOriginPoint(origin);
    
 }
 

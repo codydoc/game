@@ -17,7 +17,6 @@ Saucer::Saucer(QPixmap* pm,int nx, int ny, MainWindow* mainw):Thing(pm,nx,ny)
 
 void Saucer::move()
 {
-   //std::cout<< "MOVING! In Saucer\n";
    
    cx-=vX;
    cy-=vY;
@@ -42,12 +41,10 @@ void Saucer::move()
       }  
    }
    
-//setPos(x,y);
-   
    else
-   {//cx=400;
-   mw->destroySaucer(this); //change to destroy saucer
-   //call a self destruct or destruct function in mainwindow so that this is deleted if it gets this far
+   {
+   mw->destroySaucer(); 
+
    }
 }
 

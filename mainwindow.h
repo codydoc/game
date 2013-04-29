@@ -66,10 +66,10 @@ public:
     void startGame();
     void createComet();
     void redeemLife();
-    void destroyComet(Comet*);
-    void destroyMeteor(Meteor*);
-    void killAlien(Alien*);
-    void destroySaucer(Saucer*);
+    void destroyComet();
+    void destroyMeteor();
+    void killAlien();
+    void destroySaucer();
     void createAlien();
     void createSaucer();
     void createMeteor();

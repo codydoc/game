@@ -12,7 +12,6 @@ void MainWindow::handleTimer() {
    {
    
    timercount++; 
-  
    avatar->move();
    
    if(timercount%1000==0)
@@ -26,11 +25,11 @@ void MainWindow::handleTimer() {
      {timerint+=50;}
    }
    
-   std::cout<<"LIST SIZE: "<<thinglist->size()<<std::endl;
+   //std::cout<<"LIST SIZE: "<<thinglist->size()<<std::endl;
    
    for(int i=0;i<thinglist->size();i++)
    {
-       std::cout<<"iteminlist: "<<thinglist->at(i)->getName()<<std::endl;
+       //std::cout<<"iteminlist: "<<thinglist->at(i)->getName()<<std::endl;
      
      if(avatar->collidesWithItem(thinglist->at(i)))
      {
@@ -47,10 +46,13 @@ void MainWindow::handleTimer() {
        error->clear();
        error->insertPlainText("Oh no! You lost a life!");
        
-       std::cout<<"BEING HIT BY"<<thinglist->at(i)->getName()<<std::endl;
-       scene->removeItem(thinglist->at(i));
-       ((thinglist->at(i))->isActive)=false;
-       thinglist->remove(thinglist->at(i));
+       //std::cout<<"BEING HIT BY"<<thinglist->at(i)->getName()<<std::endl;
+       if(thinglist->at(i)->isActive)
+       {
+         scene->removeItem(thinglist->at(i));
+         ((thinglist->at(i))->isActive)=false;
+         thinglist->remove(thinglist->at(i));
+       }
        
        
      }
@@ -58,23 +60,25 @@ void MainWindow::handleTimer() {
    }
       
    if(timercount%20==0)
-   {mainscore+=1000;
+   {
+   mainscore+=1000;
    QString s;
    scorebox->clear();
    scorebox->insertPlainText(s.setNum(mainscore));
    error->clear();}
    
    if(alienskilled%3==0 && heartshowing==false && alienskilled>0)
-   {scene->addItem(heart);
+   {
+    scene->addItem(heart);
     heartshowing=true;
    }
    
-   if(!isComet)
+   if(!thecomet->isActive)
    {
      createComet();
    }
    
-   if(isComet)
+   if(thecomet->isActive)
    {thecomet->move();}
    
    int randalien = rand()%250+1;
@@ -110,31 +114,22 @@ void MainWindow::handleTimer() {
  }
  
  else
- {error->clear();
- error->insertPlainText("Game Over");
- timer->stop();
- QString lose;
- startm->setText("Game Over!\n Your score was: " + lose.setNum(mainscore));
- startm->exec();
+ {
+   error->clear();
+   error->insertPlainText("Game Over");
+   timer->stop();
+   QString lose;
+   startm->setText("Game Over!\n Your score was: " + lose.setNum(mainscore));
+   startm->exec();
  
- scene->clear();
+   scene->clear();
  
- QString gover("game_over.jpg");
- gameo = new QPixmap(gover);
- gameover = new QGraphicsPixmapItem(*gameo);
- scene->addItem(gameover);
+   QString gover("game_over.jpg");
+   gameo = new QPixmap(gover);
+   gameover = new QGraphicsPixmapItem(*gameo);
+   scene->addItem(gameover);
  
 
- 
- /*
- for(int j=0;j<thinglist->size();j++)
- {
-   if((thinglist->at(j))->isActive){scene->removeItem(thinglist->at(j));}
-   (thinglist->at(j))->isActive=false;
-   //avatar->setXY(300,300);
-   //avatar->move();
- }
- */
  }     
   
   
@@ -147,10 +142,10 @@ Closes the window
 */
 void MainWindow::close(){window->close();}
 
-void MainWindow::destroyComet(Comet* com)
+void MainWindow::destroyComet()
 {
 
-  if(/*isComet==true*/ thecomet->isActive)
+  if(thecomet->isActive)
   {
     scene->removeItem(thecomet);
     isComet=false;
@@ -158,28 +153,15 @@ void MainWindow::destroyComet(Comet* com)
   
     if(thinglist->remove(thecomet))
     {
-       std::cout<<"COMET DESTROYED"<<std::endl;
-       //trashlist->push_back(com);
+       //std::cout<<"COMET DESTROYED"<<std::endl;
     }
   
-  /*
-  for(int i=0;i<thinglist->size();i++)
-  {
-    if(thinglist->at(i)==com)
-    {
-      if(thinglist->remove(com)){std::cout<<"DESTROYING COMET"<<std::endl;
-      trashlist->push_back(com);
-      }
-      //delete com; //need to make sure not a ton of memory leaks here
-      else{std::cout<<"FAILED TO DESTROY COMET"<<std::endl;}
-    }
-  }*/
   } 
 }
 
-void MainWindow::destroyMeteor(Meteor* met)
+void MainWindow::destroyMeteor()
 {
-  if(/*isMeteor==true*/ meteorite->isActive)
+  if(meteorite->isActive)
   {
   scene->removeItem(meteorite);
   isMeteor=false;
@@ -187,34 +169,16 @@ void MainWindow::destroyMeteor(Meteor* met)
   
    if(thinglist->remove(meteorite))
    {
-    std::cout<<"DESTROYING METEOR"<<std::endl;
-    //trashlist->push_back(met);
+    //std::cout<<"DESTROYING METEOR"<<std::endl;
    }
   
-  /*
-  for(int i=0;i<thinglist->size();i++)
-  {
-    if(thinglist->at(i)==met)
-    {
-      
-      if(thinglist->remove(met)){
-      isMeteor=false;
-      std::cout<<"DESTROYING METEOR"<<std::endl;
-      trashlist->push_back(met);
-      }
-      //delete com;
-      else{std::cout<<"FAILED TO DESTROY METEOR"<<std::endl;}
-      
-    } */
   }
   
-  
-  if(isMeteor==false){std::cout<<"Meteor destroyed"<<std::endl;}
 }
 
-void MainWindow::destroySaucer(Saucer* sau)
+void MainWindow::destroySaucer()
 {
-  if(/*isSaucer==true*/ sauceship->isActive)
+  if(sauceship->isActive)
   {
   scene->removeItem(sauceship);
   isSaucer=false;
@@ -222,30 +186,16 @@ void MainWindow::destroySaucer(Saucer* sau)
   
     if(thinglist->remove(sauceship))
     {
-      std::cout<<"DESTROYING SAUCER"<<std::endl;
-      //trashlist->push_back(sau);
-    }
-  /*
-  for(int i=0;i<thinglist->size();i++)
-  {
-    if(thinglist->at(i)==sau)
-    {
-      std::cout<<"DESTROYING SAUCER"<<std::endl;
-      thinglist->remove(sau);
-      trashlist->push_back(sau);
-      //delete com;
+      //std::cout<<"DESTROYING SAUCER"<<std::endl;
       
     }
-  } */
   }
 }
 
-void MainWindow::killAlien(Alien* ali)
+void MainWindow::killAlien()
 {
   
-  std::cout<<"IN KILL ALIEN"<<std::endl;
-  
-  if(/*isAlien==true*/ alien->isActive)
+  if( alien->isActive)
   {
   scene->removeItem(alien);
   isAlien=false;
@@ -255,21 +205,9 @@ void MainWindow::killAlien(Alien* ali)
   
     if(thinglist->remove(alien))
     {
-     //trashlist->push_back(ali);
-     std::cout<<"ALIEN KILLED"<<std::endl;
+     //std::cout<<"ALIEN KILLED"<<std::endl;
     }
   
-  /*
-  for(int i=0;i<thinglist->size();i++)
-  {
-    if(thinglist->at(i)==ali)
-    {
-      thinglist->remove(ali);
-      trashlist->push_back(ali);
-      //delete ali; //for some reason cannot delete
-    }
-  }
-  */
   mainscore+=100;
   alienskilled++;
   }
@@ -280,15 +218,11 @@ void MainWindow::createComet()
     int random;
     random = rand() %300+10;
     
-    if(/*isComet==false*/ !thecomet->isActive)
+    if(!thecomet->isActive)
     {
-    std::cout<<"Adding comet"<<std::endl;
+    //std::cout<<"Adding comet"<<std::endl;
+    
     thecomet->setXY(450,random);
-    /*
-    QString title("comet.png");
-    comet = new QPixmap(title);
-    thecomet = new Comet(comet,450,random,this);
-    */
     scene->addItem(thecomet);
      
     thinglist->push_back(thecomet);
@@ -302,15 +236,11 @@ void MainWindow::createMeteor()
     int random;
     random = rand() %250+50;
     
-    if(/*isMeteor==false*/ !meteorite->isActive)
+    if(!meteorite->isActive)
     {
-    std::cout<<"Adding meteor"<<std::endl;
+    //std::cout<<"Adding meteor"<<std::endl;
+    
     meteorite->setXY(340,random);
-    /*
-    QString title("asteroid.png");
-    met = new QPixmap(title);
-    meteorite = new Meteor(met,350,random,this);
-    */
     scene->addItem(meteorite);
      
     thinglist->push_back(meteorite);
@@ -326,15 +256,13 @@ void MainWindow::createAlien()
     int randomy;
     randomy = rand() %300+15;
     
-    if(/*isAlien==false*/ !alien->isActive){
-    std::cout<<"Adding alien"<<std::endl;
+    if(!alien->isActive)
+    {
+    //std::cout<<"Adding alien"<<std::endl;
+    
     alien->setXY(randomx,randomy);
-    /*
-    QString title("a1.png");
-    ali = new QPixmap(title);
-    alien = new Alien(ali,randomx,randomy,this);
-    */
     scene->addItem(alien);
+    
     alien->isActive=true;
     thinglist->push_back(alien);
     isAlien=true;
@@ -348,15 +276,13 @@ void MainWindow::createSaucer()
     int randomy;
     randomy = rand() %300+15;
     
-    if(/*isSaucer==false*/ !sauceship->isActive){
-    std::cout<<"Adding saucer"<<std::endl;
+    if(!sauceship->isActive)
+    {
+    //std::cout<<"Adding saucer"<<std::endl;
+    
     sauceship->setXY(490,randomy);
-    /*
-    QString title("saucer.png");
-    sauce = new QPixmap(title);
-    sauceship = new Saucer(sauce,490,randomy,this);
-    */
     scene->addItem(sauceship);
+    
     thinglist->push_back(sauceship);
     isSaucer=true;
     sauceship->isActive=true;
@@ -367,43 +293,20 @@ void MainWindow::createSaucer()
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-  
- // QWidget::keyPressEvent(e);
-  std::cout<< "IN KEY PRESS EVENT"<<std::endl;
-  //error->insertPlainText("In key press");
-  
   switch(e->key())
   {
-  case Qt::Key_Up: std::cout<<"PRESSED UP KEY"<<std::endl;
-  avatar->setXY(avatar->getX(),avatar->getY()-10);
+  case Qt::Key_Up: if(avatar->getY()>0){avatar->setXY(avatar->getX(),avatar->getY()-10);}
   break;
-  case Qt::Key_Down: std::cout<<"PRESSED DOWN KEY"<<std::endl;
-  avatar->setXY(avatar->getX(),avatar->getY()+10);
+  case Qt::Key_Down: if(avatar->getY()<325){avatar->setXY(avatar->getX(),avatar->getY()+10);}
   break;
   }
 
-
 }
 
-/*
-void MainWindow::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-  //avatar->setXY(avatar->getX()+5,avatar->getY()+5);
-  std::cout<<"MOUSE PRESSED..."<<std::endl;
-}
-*/
 
-/**
-Start Button Function
-
-  This function takes in the three initialization ints, instantiates the board,
-  dynamically allocates GUITiles, and then addes them to the scene in the right place. It also
-  adds the GUITile objects to a vector in the correct order.
-*/
 void MainWindow::startButton()
 { 
  
-  
   if(!hasStarted)
   {
   error->clear();
@@ -442,13 +345,11 @@ void MainWindow::startGame() //Implement gameplay here
     chris = new QPixmap(title);
     avatar = new Chris(chris,30,160);
     scene->addItem(avatar);
-    //thinglist->push_back(avatar);
     
     QString t1("spaceship.png");
     ship = new QPixmap(t1);
     spaceship = new Ship(ship,0,288,this);
     scene->addItem(spaceship);
-    //thinglist->push_back(spaceship);
     
     QString title2("comet.png");
     comet = new QPixmap(title2);
@@ -485,22 +386,23 @@ void MainWindow::startGame() //Implement gameplay here
 }
  
 
-void MainWindow::pauseb() //change what is happening in here to the keypress event
+void MainWindow::pauseb() 
 {
    
         if(timer->isActive())
-	{timer->stop();
-	pause->setText("Resume");
-	error->clear();
-        error->insertPlainText("Game paused...");
-	
+	{
+	  timer->stop();
+	  pause->setText("Resume");
+	  error->clear();
+          error->insertPlainText("Game paused...");
 	}
 
 	else if(!timer->isActive())
-	{timer->start();
-	pause->setText("Pause");
-	error->clear();
-        error->insertPlainText("Game resumed!");
+	{
+	  timer->start();
+	  pause->setText("Pause");
+	  error->clear();
+          error->insertPlainText("Game resumed!");
 	}
    
    
@@ -510,13 +412,15 @@ void MainWindow::pauseb() //change what is happening in here to the keypress eve
 void MainWindow::redeemLife()
 {
   if(alienskilled>0 && alienskilled%3==0)
-  {QString s;
-  livesleft++;
-  livesbox->clear();
-  livesbox->insertPlainText(s.setNum(livesleft));
-  alienskilled=0;
-  scene->removeItem(heart);
-  } //set this to lifecount...
+  {
+    QString s;
+    livesleft++;
+    livesbox->clear();
+    livesbox->insertPlainText(s.setNum(livesleft));
+    alienskilled=0;
+    scene->removeItem(heart);
+    heartshowing=false;
+  } 
 }
 
 /**
@@ -531,12 +435,12 @@ MainWindow::MainWindow()  {
   inputname= new QInputDialog;
   bool ok=false;
   playername = inputname->getText(this, tr("QInputDialog::getText()"),
-                                         tr("User name:"), QLineEdit::Normal,
-                                         tr("Type your name here"), &ok);
+                                        tr("User name:"), QLineEdit::Normal,
+                                        tr("Type your name here"), &ok);
   if(ok){
     window= new QWidget;
     
-    //setFocusPolicy(Qt::StrongFocus);
+
     setFocus();
     
     window->setWindowTitle( "Chris Hadfield");
@@ -563,10 +467,8 @@ MainWindow::MainWindow()  {
    
                                          
     
-    tbox1= new QLabel("Welcome "+ playername); //Enter Size
-
+    tbox1= new QLabel("Welcome "+ playername); 
     error = new QTextEdit("Message Box");
-    
     tbox1->setMaximumHeight(30);
     error->setMaximumHeight(50);
     
@@ -580,8 +482,6 @@ MainWindow::MainWindow()  {
     livesbox->setMaximumHeight(30);
     scorebox->setMaximumHeight(30);
     livesbox->setMaximumWidth(60);
-    
-    //grabKeyboard(); //new dummy class that derives from qgraphicsview that has keypressevents
     
     startm = new QMessageBox();
     
@@ -671,32 +571,66 @@ Deletes dynamically allocated objects
 */
 MainWindow::~MainWindow()
 {
-    //timer->stop();
-    delete timer;
-    delete window;
-    delete start;
-    delete pause;
-    delete quit;
-    delete tbox1;
-    delete tbox2;
-    delete tbox3;
-    delete layout;
-    delete horlay;
-    delete horlay2;
-
-    //*
+  
     delete scene;
     delete view;
-
+    delete timer;
+    delete start;
+    delete quit;
+    delete pause;
+    delete window;
+    delete tbox1;
     delete error;
+    delete livesbox;
+    delete scorebox;
+    
+    delete horlay;
+    delete layout;
+    delete horlay2;
     delete horlay3;
     delete horlay4;
     delete horlay5;
+    
+    /**Labels*/
+    delete lives;
+    delete score;
+    
+    /**Images*/
+    delete bground;
+    delete bgitem;
+    
+    delete space;
+    delete space1;
+    
+    delete chris;
+    delete avatar;
+    
+    delete comet;
+    delete thecomet;
+    
+    delete ship;
+    delete spaceship;
+    
+    delete ali;
+    delete alien;
+    
+    delete sauce;
+    delete sauceship;
+    
+    delete met;
+    delete meteorite;
 
     delete thinglist;
-
+    delete trashlist;
     
+    delete startm;
+    delete inputname;
     
- 
+    delete gameo;
+    delete gameover;
+    
+    delete hear;
+    delete heart;
+    
 }
 
